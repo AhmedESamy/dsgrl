@@ -8,7 +8,7 @@
 -   Numpy 1.17.2+
 -   Networkx 2.3+
 -   SciPy 1.5.4+
--   (OPTINAL) OPTUNA 2.8.0+ ```If you wish to tune the hyper-parameters of SelfGNN for any dataset```
+-   (OPTINAL) OPTUNA 2.8.0+ ```If you wish to tune the hyper-parameters of DSGRL```
 
 
 ### Example usage

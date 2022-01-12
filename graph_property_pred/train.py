@@ -81,16 +81,12 @@ class Trainer:
         """
         Fits a self-supervised model
         """
-        show_batch_progress = len(self.loader) > 500
-        iters = len(self.loader) if show_batch_progress else self.epochs
+        # TODO: Dynamic progress bar
+        # show_batch_progress = len(self.loader) > 500
+        # iters = len(self.loader) if show_batch_progress else self.epochs
         
-        pbar = tqdm(total=iters)
-        pbar.set_description("Self-supervised training")
-        
-        for i in range(self.epochs):
-            self._train_step(pbar=pbar if show_batch_progress else None)
-            if not show_batch_progress:
-                pbar.update(i + 1)
+        for i in tqdm(range(self.epochs), desc="Self-supervised training"):
+            self._train_step()
             
     def log_loss(self, path):
         """

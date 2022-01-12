@@ -67,6 +67,7 @@ class Surgeon(SurgeonModule):
             edge_index2 = view2["edge_index"]
             edge_attr1 = view1["edge_attr"]
             edge_attr2 = view2["edge_attr"]
+            self.hon = (edge_index2.detach().cpu(), edge_attr2.detach().cpu())
         
         z1 = self.net(x=x1, edge_index=edge_index1, edge_attr=edge_attr1)
         z2 = self.net(x=x2, edge_index=edge_index2, edge_attr=edge_attr2)
@@ -79,9 +80,9 @@ class Surgeon(SurgeonModule):
         else:
             x1, x2 = self.augmentor.inference(x)
             torch.cuda.empty_cache()
-            z1 = self.net.inference(x1, loader).cpu()
+            z1 = self.net.inference(x1, loader, desc="Inferring lattent representations for the first view").cpu()
             torch.cuda.empty_cache()
-            z2 = self.net.inference(x2, loader).cpu()
+            z2 = self.net.inference(x2, loader, desc="Inferring lattent representations for the second view").cpu()
                 
         torch.cuda.empty_cache()
         return self.aggregate_views(z1, z2)

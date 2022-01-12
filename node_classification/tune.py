@@ -29,9 +29,9 @@ def tune(args):
                 args.keep_edges = trial.suggest_categorical("keep_edges", [True, False])
                 args.edge_mul = trial.suggest_int("edge_mul", 1, 10)
 
-        trainer = experiment.Trainer(args=args)
+        trainer = experiment.NodeClassificationExperiment(args=args)
         
-        trainer.train()
+        trainer.run()
         trainer.pause_training_mode()
         
         num_classes = trainer.dataset.num_classes
@@ -41,7 +41,7 @@ def tune(args):
         emb_dim = embeddings.shape[1]
 
         # Evaluating under the linear setting
-        evaluator = experiment.LinearEvaluator(
+        evaluator = experiment.LinearEvaluationExperiment(
             in_dim=emb_dim, out_dim=num_classes, device=args.device,
             task=args.task, verbose=args.verbose)
         val_acc = evaluator.execute(

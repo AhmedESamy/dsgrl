@@ -1,5 +1,6 @@
 from .transforms import SplitTransform
 
+from torch_geometric.transforms import LocalDegreeProfile, NormalizeFeatures
 import torch
 
 from urllib.request import urlopen
@@ -35,13 +36,15 @@ class SupportedDatasets:
     def __init_split_urls(self):
         split_urls_chem = {
             name: f"{splits_base_url}/CHEMICAL/{name}_splits.json" 
-            for name in self.tu_chem_datasets
+            for name in self.tu_chem_datasets if name.lower() != "proteins"
         }
+        split_urls_chem["PROTEINS"] = f"{splits_base_url}/CHEMICAL/PROTEINS_full_splits.json" 
         split_urls_collab = {
             name: f"{splits_base_url}/COLLABORATIVE_1/{name}_splits.json"
             for name in self.tu_collab_datasets
         }
         self.split_urls = {**split_urls_chem, **split_urls_collab}
+        self.split_sources = {}
     
     def __init_tags(self):
         self.zinc_tag = "zinc"
@@ -68,17 +71,19 @@ class SupportedDatasets:
         self.split_sources[name.lower()] = source
                 
     def __init_split_sources(self):
-        self.split_sources = {name: self.split_source_url 
-                              for name in self.tu_chem_datasets_splits_avilable}
+        datasets_with_split_url = (self.tu_chem_datasets_splits_avilable | 
+                                   self.tu_collab_datasets)
         datasets_with_no_split = (self.tu_chem_datasets_splits_na | 
                                   self.molnet_datasets)
         datasets_with_pyg_splits = self.zinc_dataset
-        for name in self.ogb_datasets:
-            self.__set_split_source(name, self.split_source_ogb)
+        for name in datasets_with_split_url:
+            self.__set_split_source(name, self.split_source_url)
         for name in datasets_with_no_split:
             self.__set_split_source(name, self.split_source_na)
         for name in datasets_with_pyg_splits:
             self.__set_split_source(name, self.split_source_pyg)
+        for name in self.ogb_datasets:
+            self.__set_split_source(name, self.split_source_ogb)
             
     def is_mol_dataset(self, name):
         name = self.name_mappings[name.lower()]
@@ -153,6 +158,7 @@ def create_splits(dataset):
     Args:
         dataset (PyG Dataset): The dataset
     """
+    print("Creating new splits")
     data = Data(y=dataset.data.y.squeeze(), 
                 num_nodes=dataset.data.y.shape[0])
     transform = SplitTransform(
@@ -169,6 +175,7 @@ def get_splits_from_url(split_url):
     Args:
         split_url (str): The url
     """
+    print(f"Grabbing splits from {split_url}")
     with urlopen(split_url) as url:
         splits = json.loads(url.read().decode())
     return splits

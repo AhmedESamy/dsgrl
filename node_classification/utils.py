@@ -24,7 +24,7 @@ def parse_basic_args():
     parser = argparse.ArgumentParser()
     parser.add_argument("--root", type=str, default="~/workspace/data/dsgrl/")
     parser.add_argument("--name", type=str, default="Photo")
-    parser.add_argument("--aug-dim", type=int, default=256)
+    parser.add_argument("--aug-dim", type=int, default=128)
     parser.add_argument("--model-dim", type=int, default=64)
     parser.add_argument("--dropout", type=float, default=0.5)
     parser.add_argument("--inv-w", type=float, default=1.)
@@ -32,18 +32,20 @@ def parse_basic_args():
     parser.add_argument("--mod-w", type=float, default=1.)
     parser.add_argument("--lr", type=float, default=0.001)
     parser.add_argument("--aug-type", type=str, default="feature")
-    parser.add_argument("--loader", type=str, default="full")
+    parser.add_argument("--mini-batch", dest="mini_batch", action="store_true")
+    parser.add_argument("--full-batch", dest="mini_batch", action="store_false")
     parser.add_argument("--num-aug-layers", type=int, default=2)
     parser.add_argument("--num-gnn-layers", type=int, default=2)
     parser.add_argument("--edge-mul", type=int, default=2)
     parser.add_argument("--keep-edges", dest="keep_edges", action="store_true")
-    parser.add_argument("--task", type=str, default="mcc")
+    parser.add_argument("--batch-size", type=int, default=1024)
     parser.add_argument("--workers", type=int, default=32)
     parser.add_argument("--tune", dest="tune", action="store_true")
     parser.add_argument("--verbose", dest="verbose", action="store_true")
     parser.add_argument("--epochs", type=int, default=100)
     parser.add_argument("--trials", type=int, default=500)
     parser.set_defaults(keep_edges=False)
+    parser.set_defaults(mini_batch=False)
     parser.set_defaults(tune=False)
     parser.set_defaults(verbose=False)
     return parser.parse_args()
@@ -61,13 +63,23 @@ def parse_args():
     if basic_args.root.startswith("~"):
         basic_args.root = osp.expanduser(basic_args.root)
     os.makedirs(basic_args.root, exist_ok=True)
-    
+    if basic_args.name.lower() == "yelp":
+        basic_args.task = "mlc"
+    else:
+        basic_args.task = "mcc"
+    basic_args.aug_type = "topology"
     best_param_path = f"./params/{basic_args.name.lower()}/{basic_args.aug_type.lower()}.yaml"
     params = load_params(best_param_path)
     for key, default_val in basic_args.__dict__.items():
         if key not in params:
             params[key] = default_val
-        
+    
+    # For ablation
+    params["epochs"] = 1
+    
+    params["inv_w"] = 1.
+    params["cov_w"] = 1.
+    params["mod_w"] = 1.
     params = {**basic_args.__dict__, **params}
     config = dataclasses.make_dataclass("Config", fields=list(params.items()))
     config = config(**params)

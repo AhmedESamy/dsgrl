@@ -3,10 +3,7 @@ from torch_geometric.nn import GCNConv, SAGEConv, BatchNorm
 import torch.nn.functional as F
 import torch.nn as nn
 import torch
-
-torch.manual_seed(1)
-torch.cuda.manual_seed_all(1)
-
+from tqdm import tqdm
 
 class Encoder(nn.Module):
 
@@ -24,6 +21,8 @@ class Encoder(nn.Module):
         self._init_modules()
         
     def _init_modules(self):
+        torch.manual_seed(1)
+        torch.cuda.manual_seed_all(1)
         if self.encoder == "gcn":
             GNNLayer = GCNConv
         elif self.encoder == "sage":
@@ -94,7 +93,7 @@ class Encoder(nn.Module):
             return self.__mini_batch_forward(x, edge_index)
     
     @torch.no_grad()
-    def inference(self, x_all, subgraph_loader):
+    def inference(self, x_all, subgraph_loader, desc='Inferring embeddings of a view'):
         """
         Subgraph inference code adapted from PyTorch Geometric:
         https://github.com/rusty1s/pytorch_geometric/blob/master/examples/reddit.py#L47
@@ -105,7 +104,7 @@ class Encoder(nn.Module):
         
         """
         pbar = tqdm(total=x_all.size(0) * len(self.stacked_gnn))
-        pbar.set_description('Inferring embeddings of a view')
+        pbar.set_description(desc)
         device = next(self.parameters()).device
         for i, conv in enumerate(self.stacked_gnn):
             xs = []

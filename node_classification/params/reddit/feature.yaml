@@ -1,0 +1,9 @@
+inv_w: 1.
+cov_w: 1.
+mod_w: 1.
+aug_dim: 128
+model_dim: 64
+dropout: 0.5
+lr: 0.001
+num_gnn_layers: 2
+epochs: 1

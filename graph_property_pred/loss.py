@@ -1,6 +1,8 @@
 import torch
 import torch.nn.functional as F
 
+torch.manual_seed(1)
+torch.cuda.manual_seed_all(1)
 
 class RegularizedLoss:
     
@@ -9,36 +11,72 @@ class RegularizedLoss:
         self.β = β
         self.γ = γ
         self.log = []
-        self.reset_losses()
+        
+    def __update_log(self):
+        self.log.append(self.terms)
+        
+    def __reset_terms(self):
+        self.terms = [None, None, None]
+        
+    def __call__(self, z1, z2, **kwargs):
+        self.__reset_terms()
+        inv_loss = self.compute_inv_loss(z1, z2, **kwargs)
+        var_loss = self.compute_var_reg(z1, z2, **kwargs)
+        cov_loss = self.compute_cov_reg(z1, z2, **kwargs)
+        self.__update_log()
+        self.__reset_terms()
+        return inv_loss + var_loss + cov_loss
+    
+    def __repr__(self):
+        args = ",\n".join(f"\t{field}={value}" for field, value in self.__dict__.items())
+        return f"{type(self).__name__}(\n{args}\n)"
         
     def compute_inv_loss(self, z1, z2):
         inv_loss = self.α * F.mse_loss(z1, z2)
-        self.losses[0] = float(inv_loss.data)
+        self.terms[0] = float(inv_loss.data)
         return inv_loss
     
-    def compute_var_loss(self, z1, z2):
-        var_loss = self.β * variance_loss(z1, z2)
-        self.losses[1] = float(var_loss.data)
-        return var_loss
+    # def compute_var_reg(self, z1, z2):
+    #     eps = 1e-4
+    #     one = torch.Tensor([1.]).to(z1.device)
+    #     std_1 = z1.var(dim=0).sqrt() + eps
+    #     std_2 = z2.var(dim=0).sqrt() + eps
+    #     v_z1 = torch.maximum(one, std_1).mean()
+    #     v_z2 = torch.maximum(one, std_2).mean()
+    #     var_reg = self.β * (v_z1 + v_z2)
+    #     self.terms[1] = float(var_reg.data)
+    #     return var_reg
     
-    def compute_cov_loss(self, z1, z2):
-        cov_loss = self.γ * covariance_loss(z1, z2)
-        self.losses[2] = float(cov_loss.data)
-        return cov_loss
+    def compute_var_reg(self, z1, z2):
+        eps = 1e-4
+        std_z1 = torch.sqrt(z1.var(dim=0) + eps)
+        std_z2 = torch.sqrt(z2.var(dim=0) + eps)
+        std_loss = torch.mean(F.relu(1 - std_z1)) + torch.mean(F.relu(1 - std_z2))
+        std_loss = self.β * std_loss
+        self.terms[1] = float(std_loss.data)
+        return std_loss
     
-    def __call__(self, z1, z2, **kwargs):
-        inv_loss = self.compute_inv_loss(z1, z2, **kwargs)
-        var_loss = self.compute_var_loss(z1, z2, **kwargs)
-        cov_loss = self.compute_cov_loss(z1, z2, **kwargs)
-        self.update_log()
-        self.reset_losses()
-        return inv_loss + var_loss + cov_loss
+    def compute_cov_reg(self, z1, z2):
+        """
+        The following code is borrowed from :
+                https://github.com/vturrisi/solo-learn/blob/main/solo/losses/vicreg.py#L58
+        """
+        N, D = z1.size()
     
-    def update_log(self):
-        self.log.append(self.losses)
-        
-    def reset_losses(self):
-        self.losses = [None, None, None]
+        z1 = z1 - z1.mean(dim=0)
+        z2 = z2 - z2.mean(dim=0)
+
+        cov_z1 = (z1.T @ z1) / (N - 1)
+        cov_z2 = (z2.T @ z2) / (N - 1)
+
+        diag = torch.eye(D, device=z1.device)
+        cov_reg = cov_z1[~diag.bool()].pow_(2).sum() / D + cov_z2[~diag.bool()].pow_(2).sum() / D
+
+        cov_reg = self.γ * cov_reg
+        self.terms[2] = float(cov_reg.data)
+        return cov_reg
+    
+    
     
     
 class ModelRegularizer:
@@ -75,52 +113,4 @@ class ModelRegularizer:
             if mod_reg != 0:
                 mod_reg = mod_reg * self.λ
                 self.log.append(float(mod_reg.data))
-        return -mod_reg
-
-    
-"""
-The following code is borrowed from https://github.com/vturrisi/solo-learn/blob/main/solo/losses/vicreg.py
-"""
-
-def variance_loss(z1: torch.Tensor, z2: torch.Tensor) -> torch.Tensor:
-    """Computes variance loss given batch of projected features z1 from view 1 and
-    projected features z2 from view 2.
-
-    Args:
-        z1 (torch.Tensor): NxD Tensor containing projected features from view 1.
-        z2 (torch.Tensor): NxD Tensor containing projected features from view 2.
-
-    Returns:
-        torch.Tensor: variance regularization loss.
-    """
-
-    eps = 1e-4
-    std_z1 = torch.sqrt(z1.var(dim=0) + eps)
-    std_z2 = torch.sqrt(z2.var(dim=0) + eps)
-    std_loss = torch.mean(F.relu(1 - std_z1)) + torch.mean(F.relu(1 - std_z2))
-    return std_loss
-
-
-def covariance_loss(z1: torch.Tensor, z2: torch.Tensor) -> torch.Tensor:
-    """Computes covariance loss given batch of projected features z1 from view 1 and
-    projected features z2 from view 2.
-
-    Args:
-        z1 (torch.Tensor): NxD Tensor containing projected features from view 1.
-        z2 (torch.Tensor): NxD Tensor containing projected features from view 2.
-
-    Returns:
-        torch.Tensor: covariance regularization loss.
-    """
-
-    N, D = z1.size()
-    
-    z1 = z1 - z1.mean(dim=0)
-    z2 = z2 - z2.mean(dim=0)
-    
-    cov_z1 = (z1.T @ z1) / (N - 1)
-    cov_z2 = (z2.T @ z2) / (N - 1)
-
-    diag = torch.eye(D, device=z1.device)
-    cov_loss = cov_z1[~diag.bool()].pow_(2).sum() / D + cov_z2[~diag.bool()].pow_(2).sum() / D
-    return cov_loss
+        return mod_reg

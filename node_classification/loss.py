@@ -9,16 +9,35 @@ def sparse_identity(size):
         diag, torch.ones(size, dtype=torch.float32), (size, size))
 
 
-class RegularizedLoss:
+class SimplifiedRegularizedLoss:
     
     def __init__(self, inv_w=1, cov_w=0.01, use_improved_loss=True):
         self.inv_w = inv_w
         self.cov_w = cov_w
         self.use_improved_loss = use_improved_loss
+        self.log = []
+        
+    def __call__(self, z1, z2):
+        self.__reset_terms()
+        z1 = F.normalize(z1, dim=1, p=2)
+        z2 = F.normalize(z2, dim=1, p=2)
+        inv = self.compute_inv(z1, z2)
+        cov_reg = self.compute_cov_reg(z1, z2)
+        self.__update_log()
+        self.__reset_terms()
+        return inv + cov_reg
+    
+    def __reset_terms(self):
+        self.terms = [None, None]
+        
+    def __update_log(self):
+        self.log.append(self.terms)
         
     def compute_inv(self, z1, z2):
         inv = 2 - 2 * (z1 * z2).sum(dim=-1).mean()
-        return self.inv_w * inv
+        inv = self.inv_w * inv
+        self.terms[0] = inv
+        return inv
     
     def compute_cov_reg(self, z1, z2):
         if self.use_improved_loss:
@@ -33,20 +52,16 @@ class RegularizedLoss:
                 (z1.matmul(z1.t()) - I).norm() + 
                 (z2.matmul(z2.t()) - I).norm()
             )
-        return self.cov_w * cov_reg
-        
-    def __call__(self, z1, z2):
-        z1 = F.normalize(z1, dim=1, p=2)
-        z2 = F.normalize(z2, dim=1, p=2)
-        inv = self.compute_inv(z1, z2)
-        cov_reg = self.compute_cov_reg(z1, z2)
-        return inv + cov_reg
+        cov_reg = self.cov_w * cov_reg
+        self.terms[1] = cov_reg
+        return cov_reg
     
     
 class ModelRegularizer:
     
     def __init__(self, mod_w=1.):
         self.mod_w = mod_w
+        self.log = []
         
     def __call__(self, augmentor):
         aug1 = augmentor.augmentor1
@@ -70,4 +85,5 @@ class ModelRegularizer:
                     mod_reg += (p @ p.T - i).norm()
             if mod_reg != 0:
                 mod_reg = mod_reg * self.mod_w
+                self.log.append(mod_reg)
         return mod_reg

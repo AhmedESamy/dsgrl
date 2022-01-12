@@ -5,15 +5,14 @@ from torch_geometric.utils import softmax
 import torch.nn.functional as F
 import torch.nn as nn
 import torch
-
-torch.manual_seed(1)
-torch.cuda.manual_seed_all(1)
-
+from tqdm import tqdm
 
 class FeatureAugmentor(nn.Module):
     
     def __init__(self, in_dim, out_dim, dropout):
         super().__init__()
+        torch.manual_seed(1)
+        torch.cuda.manual_seed_all(1)
         self.dropout = dropout
         self.augmentor1 = nn.Linear(in_dim, out_dim)
         self.augmentor2 = nn.Linear(in_dim, out_dim)
@@ -41,8 +40,6 @@ class FeatureAugmentor(nn.Module):
         immediately computing the final representations of each batch.
         
         """
-        pbar = tqdm(total=x_all.size(0))
-        pbar.set_description('Inferring views')
         
         x1s, x2s = [], []
         for i in range(0, x_all.shape[0], batch_size):
@@ -52,10 +49,6 @@ class FeatureAugmentor(nn.Module):
             x1s.append(x1.cpu())
             x2s.append(x2.cpu())
             
-            pbar.update(end)
-            
-        pbar.close()
-        
         x1, x2 = torch.cat(x1s), torch.cat(x2s)
         return x1, x2
     

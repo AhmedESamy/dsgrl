@@ -1,3 +1,5 @@
+from dataset.dsutils import SupportedDatasets
+
 from torch_geometric.profile import get_gpu_memory_from_nvidia_smi
 from torch_sparse import SparseTensor, transpose
 from torch_sparse.matmul import matmul
@@ -11,27 +13,31 @@ import yaml
 import torch
 
 
+torch.manual_seed(1)
+torch.cuda.manual_seed_all(1)
+
+supported_ds = SupportedDatasets()
+
+
 def parse_basic_args():
     parser = argparse.ArgumentParser()
     parser.add_argument("--root", type=str, default="~/workspace/data/dsgrl/")
     parser.add_argument("--name", type=str, default="DD")
-    parser.add_argument("--aug-dim", type=int, default=64)
+    parser.add_argument("--aug-dim", type=int, default=128)
     parser.add_argument("--model-dim", type=int, default=64)
     parser.add_argument("--dropout", type=float, default=0.5)
-    parser.add_argument("--inv-w", type=float, default=1.)
-    parser.add_argument("--var-w", type=float, default=1.)
+    parser.add_argument("--inv-w", type=float, default=25.)
+    parser.add_argument("--var-w", type=float, default=25.)
     parser.add_argument("--cov-w", type=float, default=1.)
     parser.add_argument("--mod-w", type=float, default=1.)
     parser.add_argument("--lr", type=float, default=0.001)
     parser.add_argument("--aug-type", type=str, default="feature")
-    parser.add_argument("--loader", type=str, default="full")
     parser.add_argument("--num-aug-layers", type=int, default=2)
     parser.add_argument("--num-gnn-layers", type=int, default=2)
     parser.add_argument("--edge-mul", type=int, default=2)
     parser.add_argument("--keep-edges", dest="keep_edges", action="store_true")
     parser.add_argument("--encode-atom", dest="encode_atom", action="store_true")
     parser.add_argument("--encode-bond", dest="encode_bond", action="store_true")
-    parser.add_argument("--task", type=str, default="mcc")
     parser.add_argument("--batch-size", type=int, default=32)
     parser.add_argument("--workers", type=int, default=32)
     parser.add_argument("--tune", dest="tune", action="store_true")
@@ -50,6 +56,7 @@ def parse_basic_args():
 
 def load_params(path):
     config = {}
+    print(path)
     if osp.exists(path):
         with open(path) as f:
             config = yaml.safe_load(f)
@@ -58,16 +65,25 @@ def load_params(path):
 
 def parse_args():
     basic_args = parse_basic_args()
+    basic_args.name = supported_ds.datasets_name_mapping[basic_args.name.lower()]
     if basic_args.root.startswith("~"):
         basic_args.root = osp.expanduser(basic_args.root)
     os.makedirs(basic_args.root, exist_ok=True)
     
-    best_param_path = f"./params/{basic_args.name.lower()}.yaml"
+    best_param_path = f"./params/{basic_args.name.lower()}/{basic_args.aug_type.lower()}.yaml"
     params = load_params(best_param_path)
+    
     for key, default_val in basic_args.__dict__.items():
         if key not in params:
             params[key] = default_val
-        
+    
+    # For ablation study
+    # params["epochs"] = 15
+    # params["inv_w"] = 1.
+    # params["var_w"] = 1.
+    # params["cov_w"] = 1.
+    # params["mod_w"] = 1.
+            
     params = {**basic_args.__dict__, **params}
     config = dataclasses.make_dataclass("Config", fields=list(params.items()))
     config = config(**params)

@@ -10,6 +10,7 @@ from model import DSGRL
 from torch_geometric.loader import DataLoader
 from sklearn.metrics import accuracy_score, roc_auc_score, mean_absolute_error
 from sklearn.linear_model import LogisticRegression
+from sklearn.neighbors import KNeighborsClassifier
 from sklearn.preprocessing import StandardScaler
 try:
     from sklearnex import patch_sklearn, config_context
@@ -19,9 +20,17 @@ except ModuleNotFoundError:
     use_gpu = False
 import torch
 import numpy as np
+import logging
+import optuna
+import yaml
+import sys
 import os
 import os.path as osp
 from tqdm import tqdm
+
+
+torch.manual_seed(1)
+torch.cuda.manual_seed_all(1)
 
 
 class GraphPropertyPredictionExperiment:
@@ -42,8 +51,8 @@ class GraphPropertyPredictionExperiment:
         """
         self._sample_params(trial)
         self.__reset_loss_fn()
-        report = self.run()
-        return report["validation"][f"average_{self.conf.metrics}"]
+        report = self._run()
+        return report["validation"]["average_accuracy"]
     
     def __get_paths(self):
         """
@@ -99,6 +108,7 @@ class GraphPropertyPredictionExperiment:
         self.agg_fn = Aggregator()
         self.dataset = UnifiedGraphDataset(
             root=conf.root, name=conf.name, degree_profile=conf.degree_profile)
+        print(self.dataset.data)
         self.splits = self.dataset.splits
         self.loader = DataLoader(
             self.dataset, batch_size=self.conf.batch_size,
@@ -138,9 +148,10 @@ class GraphPropertyPredictionExperiment:
         
         trainer.fit()
         
+        x, y = trainer.infer(self.loader, desc="Inferring embeddings after training")
+        
         self.evaluator = LinearEvaluationExperiment(
             splits=self.splits, report_test=True, verbose=not conf.tune)
-        x, y = trainer.infer(self.loader, desc="Inferring embeddings after training")
         
         report = self.evaluator.evaluate(x, y, desc="Linear evaluation after training")
         self.evaluator.log_report(report=report, name=conf.name, desc="Evaluation report before training")
@@ -180,7 +191,7 @@ class GraphPropertyPredictionExperiment:
 class LinearEvaluationExperiment:
     
     def __init__(self, splits, task="clf", metrics="accuracy", report_train=True, 
-                 report_val=True, report_test=False, verbose=True):
+                 report_val=True, report_test=False, verbose=True, estimator="logistic"):
         self.splits = splits
         self.task = task
         self.metrics = metrics
@@ -188,6 +199,7 @@ class LinearEvaluationExperiment:
         self.report_val = report_val
         self.report_test = report_test
         self.verbose = verbose
+        self.estimator = estimator
         self.supported_metrics = {
             "accuracy": accuracy_score,
             "roc_auc": roc_auc_score,
@@ -226,14 +238,13 @@ class LinearEvaluationExperiment:
             train_scores = []
             val_scores = []
             test_scores = []
-            for seed in seeds:          
-                clf = LogisticRegression(solver="liblinear", random_state=seed)
+            for seed in seeds:       
+                if self.estimator == "logistic":
+                    clf = LogisticRegression(solver="liblinear", random_state=seed)
+                elif self.estimator == "knn":
+                    clf = KNeighborsClassifier(n_neighbors=1)
                 
-                if isinstance(clf, LogisticRegression):
-                    clf.fit(x_train, y_train)
-                else:
-                    desc=f"Fitting a Logistic Regression classifier with seed {seed}"
-                    clf.fit(x_train, y_train, desc=desc)
+                clf.fit(x_train, y_train)
 
                 y_tr = clf.predict(x_train)
                 y_v = clf.predict(x_val)

@@ -5,11 +5,10 @@ import torch.nn.functional as F
 import torch.nn as nn
 import torch
 
-torch.manual_seed(1)
-torch.cuda.manual_seed_all(1)
-
 
 def _build_nn(in_dim, out_dim):
+    torch.manual_seed(1)
+    torch.cuda.manual_seed_all(1)
     return nn.Sequential(
         nn.Linear(in_dim, out_dim),
         nn.BatchNorm1d(out_dim),
@@ -28,6 +27,8 @@ class GINEncoder(torch.nn.Module):
     
     
     def __init__(self, in_dim, hidden_dim, edge_dim=None, num_layers=4, dropout=0.5, encode_atom=False, encode_bond=False):
+        torch.manual_seed(1)
+        torch.cuda.manual_seed_all(1)
         super().__init__()
         self.in_dim = in_dim
         self.hidden_dim = hidden_dim

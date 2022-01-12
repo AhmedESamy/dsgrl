@@ -1,0 +1,9 @@
+aug_dim: 342
+cov_w: 95
+dropout: 0.12316436593905958
+inv_w: 38
+lr: 0.02605877540772669
+mod_w: 64
+model_dim: 49
+num_gnn_layers: 2
+var_w: 68

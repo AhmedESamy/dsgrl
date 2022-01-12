@@ -1,0 +1,13 @@
+aug_dim: 402
+dropout: 0.12928162429202655
+edge_mul: 3
+keep_edges: true
+lr: 0.002966391059824282
+model_dim: 60
+num_gnn_layers: 1
+epochs: 30
+cov_w: 57
+inv_w: 32
+mod_w: 26
+var_w: 28
+epochs: 1

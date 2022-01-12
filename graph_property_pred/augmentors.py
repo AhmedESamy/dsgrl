@@ -7,9 +7,6 @@ import torch.nn.functional as F
 import torch.nn as nn
 import torch
 
-torch.manual_seed(1)
-torch.cuda.manual_seed_all(1)
-
 
 class FeatureAugmentor(nn.Module):
     
@@ -24,6 +21,8 @@ class FeatureAugmentor(nn.Module):
     
     def __init__(self, in_dim, out_dim, encode_atom=False):
         super().__init__()
+        torch.manual_seed(1)
+        torch.cuda.manual_seed_all(1)
         self.in_dim = in_dim
         self.out_dim = out_dim
         self.encode_atom = encode_atom

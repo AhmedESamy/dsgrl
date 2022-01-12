@@ -1,17 +1,18 @@
+from loss import SimplifiedRegularizedLoss, ModelRegularizer
 from model import Surgeon, LogisticRegression
-from gnn import Encoder
 from augmentor import get_augmentor
-from sklearn.metrics import roc_auc_score
-from torch.utils.data import DataLoader
-from collections import namedtuple
-
-import numpy as np
-
-from loss import RegularizedLoss, ModelRegularizer
+from gnn import Encoder
 import datasets
 import utils
 
+
+from sklearn.metrics import roc_auc_score
+from torch.utils.data import DataLoader
+from collections import namedtuple
+import numpy as np
 import torch
+import os.path as osp
+from tqdm import tqdm
 
 torch.manual_seed(1)
 
@@ -36,7 +37,7 @@ class NodeClassificationExperiment:
     def __init_state(self):
         args = self._args
         self.device = utils.get_device()
-        loss_fn = RegularizedLoss(inv_w=args.inv_w, cov_w=args.cov_w)
+        loss_fn = SimplifiedRegularizedLoss(inv_w=args.inv_w, cov_w=args.cov_w)
         mod_reg = ModelRegularizer(mod_w=args.mod_w)
         learner, optimizer = self.__reset_model()
         self.state = {"learner": learner, "optimizer": optimizer, 
@@ -57,14 +58,14 @@ class NodeClassificationExperiment:
         
         augmentor = get_augmentor(in_dim=aug_in_dim,  out_dim=aug_out_dim, conf=args)
 
-        encoder_type = "sage" if args.loader in {"cluster", "neighborhood"} else "gcn"
+        encoder_type = "sage" if args.mini_batch else "gcn"
         net = Encoder(
             in_dim=enc_in_dim, out_dim=enc_out_dim,
             dropout=args.dropout, num_layers=args.num_gnn_layers,
             encoder=encoder_type, skip=True)
 
         learner = Surgeon(net=net, augmentor=augmentor).to(self.device)
-
+        
         optimizer = torch.optim.Adam(
             learner.parameters(), lr=args.lr)
         return learner, optimizer
@@ -103,61 +104,22 @@ class NodeClassificationExperiment:
     def pause_training_mode(self):
         self.state.learner.eval()
 
-    def get_inference_args(self):
+    def infer_embedding(self):
         args = self._args
-        inference_args = {
-            "full": {
-                "data": self.dataset.data
-            },
-            "saint": {
-                "data": self.dataset.data
-            },
-            "cluster": {
-                "data": self.dataset.data,
-                "loader": self._subgraph_loader
-            },
-            "neighborhood": {
-                "data": self.dataset.data,
-                "loader": self._subgraph_loader
-            }
-        }
-        return inference_args[args.loader.lower()]
-
-    def infer_embedding(
-            self, data=None, loader=None, aggregate="concat", return_loader=False):
-        error_message = (
-            "Both the 'data' or 'loader' argument can not be none. "
-            "Please specify on or both of them"
-        )
-        assert data is not None or loader is not None, message
-        args = self._args
-        utils.log("Inferring embeddings", verbose=args.verbose)
+        
         learner = self.state.learner
         learner.eval()
-        if data is not None and loader is not None:
-            edge_attr = data.edge_attr if hasattr(data, "edge_attr") else None
-            return learner.infer(
-                x=data.x, edge_index=data.edge_index,
-                edge_attr=edge_attr, loader=loader)
-        elif data is None:
-            z = y = None
-            for data in loader:
-                gnn_input = utils.to_surgeon_input(batch=data, full_data=self.dataset.data)
-                z_ = learner.infer(**gnn_input)
-                if z is None:
-                    z, y = z_, data.y
-                else:
-                    z, y = torch.cat([z, z_]), torch.cat([y, data.y])
-            if return_loader:
-                return DataLoader(
-                    list(zip(z.detach().cpu(), y.detach().cpu())),
-                    batch_size=args.batch_size,
-                    num_workers=args.workers)
-            return z, y
-        else:
-            return learner.infer(
-                x=data.x, edge_index=data.edge_index,
-                edge_attr=data.edge_attr)
+        data = self.dataset.data
+        edge_attr = data.edge_attr if hasattr(data, "edge_attr") else None
+        inference_args = {"x": data.x, "edge_index": data.edge_index, "edge_attr": edge_attr}
+        if args.mini_batch:
+            inference_args["loader"] = self._subgraph_loader
+            
+        return learner.infer(**inference_args)
+        
+    def save_hon(self):
+        path = osp.join(self.dataset.processed_dir, "hon.pt")
+        torch.save(self.state.learner.hon, path)
 
     def reset_model(self):
         self.__init_state()
@@ -165,13 +127,14 @@ class NodeClassificationExperiment:
 
 class LinearEvaluationExperiment:
 
-    def __init__(self, in_dim, out_dim, device, task, verbose=True):
+    def __init__(self, in_dim, out_dim, device, task, verbose=True, epochs=100):
         self._in_dim = in_dim
         self._out_dim = out_dim
         self._device = device
         self._task = task
         self._metric = "accuracy" if task in {"bc", "mcc"} else "roc_auc"
         self._verbose = verbose
+        self._epochs = epochs
 
     def __feed(self, x, y, mask=None):
         if mask is None:
@@ -198,12 +161,17 @@ class LinearEvaluationExperiment:
             )
 
     def execute(self, x, y, train_mask, val_mask=None, test_mask=None):
+        if train_mask.ndim == 1:
+            train_mask = train_mask.view(-1, 1)
+            val_mask = val_mask.view(-1, 1)
+            test_mask = test_mask.view(-1, 1)
         num_splits = train_mask.shape[1]
-        print("Training a linear classifier")
+        
         seeds = range(num_splits)
         val_accs, test_accs = [], []
         val_msg = test_msg = ""
         val_best = test_best = 0.
+        
         for split_idx in range(num_splits):
             torch.manual_seed(seeds[split_idx])
             self._classifier = LogisticRegression(
@@ -215,7 +183,7 @@ class LinearEvaluationExperiment:
                 train_mask, val_mask=val_mask,
                 test_mask=test_mask, index=mask_index)
 
-            for i in range(100):
+            for i in tqdm(range(self._epochs), desc=f"Training a linear classifier for split {split_idx + 1}"):
                 self._classifier.train()
                 logits, loss = self.__feed(x=x, y=y, mask=train_mask)
                 opt.zero_grad()
@@ -233,7 +201,12 @@ class LinearEvaluationExperiment:
                     if val_acc > val_best:
                         val_best = val_acc
                         test_best = test_acc
-
+                        
+            # train_acc = self.score(scores=logits, truth=y[train_mask].squeeze())
+            # val_logits, _ = self.__feed(x=x, y=y, mask=val_mask)
+            # val_acc = self.score(scores=val_logits, truth=y[val_mask].squeeze())
+            # test_logits, _ = self.__feed(x=x, y=y, mask=test_mask)
+            # test_acc = self.score(scores=test_logits, truth=y[test_mask].squeeze())
             val_acc, test_acc = val_best, test_best
             val_msg = f"validation {self._metric}: {val_acc:.2f}"
             test_msg = f"test {self._metric}: {test_acc:.2f}"

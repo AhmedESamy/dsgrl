@@ -1,0 +1,11 @@
+aug_dim: 72
+cov_w: 14
+dropout: 0.7865288644180929
+inv_w: 36
+lr: 0.012489093794605898
+mod_w: 86
+model_dim: 47
+num_gnn_layers: 1
+var_w: 37
+
+# 'lr': 0.012489093794605898, 'dropout': 0.7865288644180929, 'num_gnn_layers': 1, 'aug_dim': 72, 'model_dim': 47, 'inv_w': 36, 'var_w': 37, 'cov_w': 14, 'mod_w': 86

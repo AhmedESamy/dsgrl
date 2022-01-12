@@ -1,8 +1,8 @@
 from torch_geometric.data import ClusterData, ClusterLoader, InMemoryDataset
-from torch_geometric.data import GraphSAINTRandomWalkSampler, NeighborSampler
 from torch_geometric.datasets import CitationFull, Coauthor, Amazon, WikiCS, Flickr
 from torch_geometric.datasets import Actor, Reddit, Yelp, FacebookPagePage, GitHub
 from torch_geometric.datasets import DeezerEurope
+from torch_geometric.loader import NeighborSampler
 
 import torch
 
@@ -10,6 +10,7 @@ import utils
 
 import os.path as osp
 import os
+
 
 class CompiledDataset:
     
@@ -19,44 +20,12 @@ class CompiledDataset:
     def compile(self):
         args = self._args
         compiled_data = {}
-        if args.loader.lower() == "full":
-            dataset = Dataset(args.root, args.name)
-            compiled_data[utils.DATASET] = dataset
-            compiled_data[utils.TRAIN_LOADER] = [dataset.data]
-        elif args.loader.lower() == "saint":
-            dataset = Dataset(args.root, args.name)
-            loader = GraphSAINTRandomWalkSampler(
-                dataset[0], batch_size=args.batch_size, walk_length=2,
-                num_steps=5, sample_coverage=100,
-                save_dir=dataset.processed_dir,
-                num_workers=32)
-            compiled_data[utils.DATASET] = dataset
-            compiled_data[utils.TRAIN_LOADER] = loader
-            if args.name.lower() in {'reddit', 'ogbn_products'}:
-                subgraph_loader = NeighborSampler(
-                    dataset.data.edge_index, sizes=[-1], batch_size=args.batch_size,
-                    shuffle=False, num_workers=args.workers)
-                compiled_data[utils.SUBGRAPH_LOADER] = subgraph_loader
-        elif args.loader.lower() == "cluster":
-            dataset = Dataset(args.root, args.name)
-            data = dataset[0]
-            cluster_data = ClusterData(
-                data, num_parts=args.parts, recursive=False,
-                save_dir=dataset.processed_dir)
-            train_loader = ClusterLoader(
-                cluster_data, batch_size=20, shuffle=True, num_workers=args.workers)
-            subgraph_loader = NeighborSampler(
-                data.edge_index, sizes=[-1], batch_size=args.batch_size,
-                shuffle=False, num_workers=args.workers)
-            compiled_data[utils.DATASET] = dataset
-            compiled_data[utils.TRAIN_LOADER] = train_loader
-            compiled_data[utils.SUBGRAPH_LOADER] = subgraph_loader
-        elif args.loader.lower() == "neighborhood":
+        if args.mini_batch:
             dataset = Dataset(args.root, args.name)
             data = dataset.data
             train_idx = data.train_mask.nonzero(as_tuple=True)[0]
             train_loader = NeighborSampler(
-                data.edge_index, node_idx=train_idx, sizes=[32] * args.layers, 
+                data.edge_index, node_idx=train_idx, sizes=[32] * args.num_gnn_layers, 
                 batch_size=args.batch_size, shuffle=True, num_workers=args.workers)
             subgraph_loader = NeighborSampler(
                 data.edge_index, node_idx=None, sizes=[-1], batch_size=args.batch_size, 
@@ -65,9 +34,9 @@ class CompiledDataset:
             compiled_data[utils.TRAIN_LOADER] = train_loader
             compiled_data[utils.SUBGRAPH_LOADER] = subgraph_loader
         else:
-            raise ValueError(
-                """Unknown value for the argument 'loader'. Valid options are 'full', 'saint', 
-                'neighborhood' and 'cluster'""")
+            dataset = Dataset(args.root, args.name)
+            compiled_data[utils.DATASET] = dataset
+            compiled_data[utils.TRAIN_LOADER] = [dataset.data]
         return compiled_data
             
 
@@ -126,30 +95,37 @@ def fetch_data(root, name):
         dataset = GitHub(osp.join(root, name))
     elif name.lower() == "deezer":
         dataset = DeezerEurope(osp.join(root, name))
+    print(dataset.data)
     data_dir = osp.split(dataset.raw_dir)[0]
     result_dir = osp.join(data_dir,  "result")
     model_dir = osp.join(data_dir, "model")
     os.makedirs(result_dir, exist_ok=True)
     os.makedirs(model_dir, exist_ok=True)
-    return update_if(dataset)
+    return verify(dataset)
 
-
-def update_if(dataset):
-    data = dataset[0]
-    updated = False
+def verify(dataset):
+    def save(data_list):
+        data, slices = dataset.collate(data_list)
+        torch.save((data, slices), dataset.processed_paths[0])
+        return data
+        
+    data = dataset.data
+    # Verify mask
     if not hasattr(data, "train_mask"):
         print("Creating masks")
-        updated = True
         train_mask, val_mask, test_mask = utils.create_mask(data)
         data.train_mask = train_mask
         data.val_mask = val_mask
         data.test_mask = test_mask
+        data = save([data])
+            
+    # Verify y for multi-labels
     if isinstance(data.y, torch.LongTensor):
-        if len(data.y.shape) > 1 and data.y.sum(dim=-1) > 1:  # is multi-label
+        if data.y.ndim > 1 and data.y.sum(dim=-1) > 1:  # is multi-label
             print("Casting class labels to float tensor ...")
             data.y = data.y.float()
-            updated = True
+            data = save([data])
             
-    if updated:
-        data, slices = dataset.collate([data])
-        torch.save((data, slices), dataset.processed_paths[0])
+    return data
+    
+        

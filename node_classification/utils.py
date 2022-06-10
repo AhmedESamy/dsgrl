@@ -25,7 +25,7 @@ SUBGRAPH_LOADER = 'subgraph_loader'
 
 def parse_basic_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--root", type=str, default="/data/zekarias/data/dsgrl")
+    parser.add_argument("--root", type=str, default="~/workspace/data/dsgrl/")
     parser.add_argument("--name", type=str, default="Photo")
     parser.add_argument("--aug-dim", "-ad", type=int, default=128)
     parser.add_argument("--model-dim", '-md', type=int, default=64)

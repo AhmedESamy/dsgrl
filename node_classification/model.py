@@ -22,11 +22,11 @@ class LogisticRegression(SurgeonModule):
     """
     def __init__(self, num_dim, num_class, task='mcc'):
         super().__init__()
-        assert task in {"bc", "mcc", "mlc"}
+        assert task in {"bc", "mcc", "mlc", "hetro"}
         self.linear = nn.Linear(num_dim, num_class)
         torch.nn.init.xavier_uniform_(self.linear.weight.data)
         self.linear.bias.data.fill_(0.0)
-        if task in {'bc', 'mcc'}:
+        if task in {'bc', 'mcc', 'hetro'}:
             self.loss_fn = nn.CrossEntropyLoss()
         elif task == "mlc":
             self.loss_fn = nn.BCEWithLogitsLoss()
@@ -39,20 +39,40 @@ class LogisticRegression(SurgeonModule):
 
 class Surgeon(SurgeonModule):
 
-    def __init__(self, net, augmentor, agg_method="concat", 
-        use_improved_loss=True):
+    def __init__(
+        self, net, augmentor, agg_method="concat", 
+        use_improved_loss=True
+    ):
         super().__init__()
         self.augmentor = augmentor
         self.net = net
         self.agg_method = agg_method
         self.use_improved_loss = use_improved_loss
-
-    def aggregate_views(self, x1, x2):
+        
+    def _aggregate_views(self, x1, x2):
         if self.agg_method == "mean":
             return (x1 + x2) / 2.
         elif self.agg_method == "sum":
             return x1 + x2
         return torch.cat([x1, x2], dim=-1)
+    
+    def _aggregate_hetro_views(self, x1, x2):
+        out = {}
+        for key in self.net.metadata[0]:
+            if self.agg_method == "mean":
+                out[key] = (x1[key] + x2[key]) / 2.
+            elif self.agg_method == "sum":
+                out[key] = x1[key] + x2[key]
+            else:
+                out[key] = torch.cat(
+                    (x1[key], x2[key]), dim=-1
+                )
+        return out
+        
+    def aggregate_views(self, x1, x2):
+        if hasattr(self.net, "metadata"):
+            return self._aggregate_hetro_views(x1, x2)
+        return self._aggregate_views(x1, x2)
     
     def forward(self, x, edge_index, edge_attr=None):
         

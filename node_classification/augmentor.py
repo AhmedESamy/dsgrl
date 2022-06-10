@@ -1,15 +1,18 @@
 from gnn import Encoder
 from utils import compute_sim, topk_edges
 
+from torch_geometric.nn import Linear
 from torch_geometric.utils import softmax
+
 import torch.nn.functional as F
 import torch.nn as nn
 import torch
 from tqdm import tqdm
 
+
 class FeatureAugmentor(nn.Module):
     
-    def __init__(self, in_dim, out_dim, dropout):
+    def __init__(self, in_dim, out_dim, dropout, **kwargs):
         super().__init__()
         torch.manual_seed(1)
         torch.cuda.manual_seed_all(1)
@@ -30,17 +33,7 @@ class FeatureAugmentor(nn.Module):
         return x1, x2
     
     @torch.no_grad()
-    def inference(self, x_all, batch_size=1000):
-        """
-        Subgraph inference code adapted from PyTorch Geometric:
-        https://github.com/rusty1s/pytorch_geometric/blob/master/examples/cluster_gcn_reddit.py#L36
-        
-        Compute representations of nodes layer by layer, using *all*
-        available edges. This leads to faster computation in contrast to
-        immediately computing the final representations of each batch.
-        
-        """
-        
+    def inference(self, x_all, batch_size=1000, **kwargs):
         x1s, x2s = [], []
         for i in range(0, x_all.shape[0], batch_size):
             end = i + batch_size if x_all.shape[0] - batch_size > i else x_all.shape[0]
@@ -51,6 +44,44 @@ class FeatureAugmentor(nn.Module):
             
         x1, x2 = torch.cat(x1s), torch.cat(x2s)
         return x1, x2
+    
+    
+class HetroFeatureAugmentor(nn.Module):
+    
+    def __init__(self, out_dim, dropout, metadata, **kwargs):
+        super().__init__()
+        torch.manual_seed(1)
+        torch.cuda.manual_seed_all(1)
+        self.out_dim = out_dim
+        self.dropout = dropout
+        self.metadata = metadata
+        self.augmentor1 = self.init_augmentor()
+        self.augmentor2 = self.init_augmentor()
+        
+    def init_augmentor(self):
+        return nn.ModuleDict({
+            nodetype: Linear(-1, self.out_dim) 
+            for nodetype in self.metadata[0]
+        })
+    
+    def augment(self, x, view=1):
+        augmentor = self.augmentor1 if view == 1 else self.augmentor2
+        out_dict = {}
+        for key, layer in augmentor.items():
+            x_ = layer(x[key])
+            x_ = F.dropout(x_, self.dropout, self.training)
+            out_dict[key] = x_
+        return out_dict
+        
+    @property
+    def name(self):
+        return "f"
+    
+    def forward(self, x, **kwargs):
+        # x => x_dict
+        view1 = self.augment(x, view=1)
+        view2 = self.augment(x, view=2)
+        return view1, view2
     
     
 class IdentityAugmentor(nn.Module):
@@ -64,6 +95,13 @@ class IdentityAugmentor(nn.Module):
         
     def forward(self, **kwargs):
         return {k: v for k, v in kwargs.items()}
+    
+    def inference(self, **kwargs):
+        return self(**kwargs)
+    
+    @property
+    def name(self):
+        return "t"
 
 
 class TopologyAugmentor(nn.Module):
@@ -107,17 +145,18 @@ class TopologyAugmentor(nn.Module):
         return view1, view2
     
     @torch.no_grad()
-    def inference(self, x_all, subgraph_loader):
-        view1 = {"x"}
+    def inference(self, x_all, subgraph_loader, **kwargs):
+        # Not implemented yet and it is useful for large scale graphs.
+        pass
+        
     
-    
-    
-    
-def get_augmentor(in_dim, out_dim, conf):
-    if conf.aug_type == "feature":
-        return FeatureAugmentor(
-            in_dim=in_dim, out_dim=out_dim, dropout=conf.dropout)
-    elif conf.aug_type == "topology":
-        return TopologyAugmentor(
-            in_dim=in_dim, out_dim=out_dim, dropout=conf.dropout, num_layers=conf.num_aug_layers, 
-            keep_edges=conf.keep_edges, edge_mul=conf.edge_mul)
+def get_augmentor(in_dim, out_dim, conf, metadata=None):
+    if metadata is None:
+        if conf.aug_type == "feature":
+            return FeatureAugmentor(
+                in_dim=in_dim, out_dim=out_dim, dropout=conf.dropout)
+        elif conf.aug_type == "topology":
+            return TopologyAugmentor(
+                in_dim=in_dim, out_dim=out_dim, dropout=conf.dropout, num_layers=conf.num_aug_layers, 
+                keep_edges=conf.keep_edges, edge_mul=conf.edge_mul)
+    return HetroFeatureAugmentor(out_dim, conf.dropout, metadata=metadata)

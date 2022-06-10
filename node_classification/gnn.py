@@ -1,4 +1,4 @@
-from torch_geometric.nn import GCNConv, SAGEConv, BatchNorm
+from torch_geometric.nn import GCNConv, SAGEConv, BatchNorm, HeteroConv, GATConv
 
 import torch.nn.functional as F
 import torch.nn as nn
@@ -7,9 +7,10 @@ from tqdm import tqdm
 
 class Encoder(nn.Module):
 
-    def __init__(self, 
-                 in_dim, out_dim, dropout, encoder='gcn', 
-                 use_norm=False, num_layers=2, skip=False):
+    def __init__(
+        self, in_dim, out_dim, dropout, encoder='gcn', 
+        use_norm=False, num_layers=2, skip=False, **kwargs
+    ):
         super().__init__()
         self.in_dim = in_dim
         self.out_dim = out_dim
@@ -20,19 +21,29 @@ class Encoder(nn.Module):
         self.skip = skip
         self._init_modules()
         
+    def _get_gnn_layer(self):
+        if self.encoder == "gcn":
+            return GCNConv
+        elif self.encoder == "sage":
+            return SAGEConv
+        
+        
+    def _conv_layer(self, in_dim, out_dim):
+        GNNLayer = self._get_gnn_layer()
+        return GNNLayer(in_dim, out_dim)
+            
     def _init_modules(self):
         torch.manual_seed(1)
         torch.cuda.manual_seed_all(1)
-        if self.encoder == "gcn":
-            GNNLayer = GCNConv
-        elif self.encoder == "sage":
-            GNNLayer = SAGEConv
-            
-        self.stacked_gnn = nn.ModuleList()
+
+        self.stacked_gnn = nn.ModuleList([
+            self._conv_layer(self.in_dim, self.out_dim)
+        ])
         
-        self.stacked_gnn.append(GNNLayer(self.in_dim, self.out_dim))
         for _ in range(1, self.num_layers):
-            self.stacked_gnn.append(GNNLayer(self.out_dim, self.out_dim))
+            self.stacked_gnn.append(
+                self._conv_layer(self.out_dim, self.out_dim)
+            )
             
         if self.skip:
             self.skips = nn.ModuleList()
@@ -93,7 +104,7 @@ class Encoder(nn.Module):
             return self.__mini_batch_forward(x, edge_index)
     
     @torch.no_grad()
-    def inference(self, x_all, subgraph_loader, desc='Inferring embeddings of a view'):
+    def inference(self, x_all, subgraph_loader, desc='Inferring lattent representations'):
         """
         Subgraph inference code adapted from PyTorch Geometric:
         https://github.com/rusty1s/pytorch_geometric/blob/master/examples/reddit.py#L47
@@ -126,3 +137,41 @@ class Encoder(nn.Module):
         pbar.close()
 
         return x_all
+    
+    
+class HetroEncoder(Encoder):
+
+    def __init__(
+        self, in_dim, out_dim, dropout, encoder='gcn', 
+        use_norm=False, num_layers=2, skip=False, 
+        metadata=None, **kwargs
+    ):
+        assert metadata is not None
+        self.metadata = metadata
+        super().__init__(
+            in_dim, out_dim, dropout, encoder=encoder,
+            use_norm=use_norm, num_layers=num_layers, 
+            skip=False, **kwargs
+        )
+        
+    def _conv_layer(self, in_dim, out_dim):
+        edge_keys = self.metadata[1]
+        # GNNLayer = self._get_gnn_layer()
+        return HeteroConv({
+            key: SAGEConv(in_dim, out_dim) 
+            for key in edge_keys
+        }, aggr='sum')
+        
+    def forward(self, x, edge_index, edge_attr=None):
+        x_dict = x 
+        for conv in self.stacked_gnn[:-1]:
+            x_dict = conv(x_dict=x_dict, edge_index_dict=edge_index)
+            x_dict = {
+                key: F.dropout(
+                    input=self.norm(x).relu(), 
+                    p=self.dropout, 
+                    training=self.training
+                )
+                for key, x in x_dict.items()
+            }
+        return x_dict

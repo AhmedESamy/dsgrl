@@ -4,7 +4,17 @@ import torch.nn.functional as F
 torch.manual_seed(1)
 torch.cuda.manual_seed_all(1)
 
-class RegularizedLoss:
+
+class BaseLoss:
+    
+    def __repr__(self):
+        args = ",\n".join(f"\t{field}={value}" 
+                          for field, value in self.__dict__.items() 
+                          if field != "log"
+                         )
+        return f"{type(self).__name__}(\n{args}\n)"
+
+class RegularizedLoss(BaseLoss):
     
     def __init__(self, α=1.0, β=1., γ=1.0):
         self.α = α
@@ -26,26 +36,11 @@ class RegularizedLoss:
         self.__update_log()
         self.__reset_terms()
         return inv_loss + var_loss + cov_loss
-    
-    def __repr__(self):
-        args = ",\n".join(f"\t{field}={value}" for field, value in self.__dict__.items())
-        return f"{type(self).__name__}(\n{args}\n)"
         
     def compute_inv_loss(self, z1, z2):
         inv_loss = self.α * F.mse_loss(z1, z2)
         self.terms[0] = float(inv_loss.data)
         return inv_loss
-    
-    # def compute_var_reg(self, z1, z2):
-    #     eps = 1e-4
-    #     one = torch.Tensor([1.]).to(z1.device)
-    #     std_1 = z1.var(dim=0).sqrt() + eps
-    #     std_2 = z2.var(dim=0).sqrt() + eps
-    #     v_z1 = torch.maximum(one, std_1).mean()
-    #     v_z2 = torch.maximum(one, std_2).mean()
-    #     var_reg = self.β * (v_z1 + v_z2)
-    #     self.terms[1] = float(var_reg.data)
-    #     return var_reg
     
     def compute_var_reg(self, z1, z2):
         eps = 1e-4
@@ -79,7 +74,7 @@ class RegularizedLoss:
     
     
     
-class ModelRegularizer:
+class ModelRegularizer(BaseLoss):
     
     """
     A model regularizer for the learnable feature augmentaion
@@ -114,3 +109,5 @@ class ModelRegularizer:
                 mod_reg = mod_reg * self.λ
                 self.log.append(float(mod_reg.data))
         return mod_reg
+    
+    

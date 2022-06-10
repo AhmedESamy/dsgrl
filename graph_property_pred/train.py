@@ -1,7 +1,10 @@
 import torch.nn.functional as F
 import torch
 
+import numpy as np
+
 from tqdm import tqdm
+import time
 
 torch.manual_seed(1)
 torch.cuda.manual_seed_all(1)
@@ -84,9 +87,16 @@ class Trainer:
         # TODO: Dynamic progress bar
         # show_batch_progress = len(self.loader) > 500
         # iters = len(self.loader) if show_batch_progress else self.epochs
-        
+        delta = []
         for i in tqdm(range(self.epochs), desc="Self-supervised training"):
+            start = time.time()
             self._train_step()
+            delta.append(time.time() - start)
+            
+        delta = delta[1:] if len(delta) > 1 else delta
+        print("Average runtime per epoch "
+              f"{np.mean(delta):.6f} +/-"
+              f"{np.std(delta):.6f}")
             
     def log_loss(self, path):
         """

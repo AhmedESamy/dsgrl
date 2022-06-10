@@ -1,18 +1,26 @@
-from loss import SimplifiedRegularizedLoss, ModelRegularizer
+from loss import SimplifiedRegularizedLoss, RegularizedLoss, ModelRegularizer
 from model import Surgeon, LogisticRegression
 from augmentor import get_augmentor
-from gnn import Encoder
+from gnn import Encoder, HetroEncoder
 import datasets
 import utils
 
 
-from sklearn.metrics import roc_auc_score
+from sklearn.metrics import roc_auc_score, f1_score, accuracy_score
+from sklearn import linear_model
 from torch.utils.data import DataLoader
 from collections import namedtuple
 import numpy as np
 import torch
 import os.path as osp
 from tqdm import tqdm
+import time
+import sys
+try:
+    import wandb
+    wandb_installed = True
+except:
+    wandb_installed = False
 
 torch.manual_seed(1)
 
@@ -21,24 +29,36 @@ class NodeClassificationExperiment:
 
     def __init__(self, args):
         self._args = args
+        self.__init_wandb()
         self.__init_data()
         self.__init_state()
+        self.__init_utils()
         
-
+    def __init_wandb(self):
+        self.wandb_log = False
+        if self._args.wandb and wandb_installed:
+            wandb.init(
+                project="dsgrl", name=self._args.name, 
+                entity=self._args.entity, config=vars(self._args)
+            )
+            self.wandb_log = True
+            
     def __init_data(self):
-        cd = datasets.CompiledDataset(self._args)
-        compiled_dataset = cd.compile()
-        self.dataset = compiled_dataset[utils.DATASET]
-        self._loader = compiled_dataset[utils.TRAIN_LOADER]
-        self._subgraph_loader = None
-        if utils.SUBGRAPH_LOADER in compiled_dataset:
-            self._subgraph_loader = compiled_dataset[utils.SUBGRAPH_LOADER]
+        self.data_module = datasets.DataModule(self._args)
+        self.dataset = self.data_module.dataset
+        self._loader = self.data_module.train_loader
+        self._subgraph_loader = self.data_module.subgraph_loader
 
     def __init_state(self):
         args = self._args
         self.device = utils.get_device()
-        loss_fn = SimplifiedRegularizedLoss(inv_w=args.inv_w, cov_w=args.cov_w)
-        mod_reg = ModelRegularizer(mod_w=args.mod_w)
+        logger = wandb if self.wandb_log else None
+        
+        loss_fn = RegularizedLoss(α=args.inv_w, β=args.var_w, γ=args.cov_w, logger=logger)
+        # loss_fn = SimplifiedRegularizedLoss(inv_w=args.inv_w, cov_w=args.cov_w)
+        print(loss_fn)
+        mod_w = args.mod_w if args.aug_type == "feature" else 0.
+        mod_reg = ModelRegularizer(mod_w=mod_w)
         learner, optimizer = self.__reset_model()
         self.state = {"learner": learner, "optimizer": optimizer, 
                       "loss_fn": loss_fn, "mod_reg": mod_reg}
@@ -46,20 +66,36 @@ class NodeClassificationExperiment:
             namedtuple("StateDict", self.state.keys())
             (*self.state.values())
         )
+        
+    def __init_utils(self):
+        self.early_stop = utils.EarlyStop(self._args.patience)
+        self.best_score_tracker = utils.BestScoreTracker()
 
     def __reset_model(self):
         print("Initializing model ...")
         args = self._args
         
-        aug_in_dim = self.dataset.data.x.shape[1]
+        aug_in_dim = self.data_module.num_features
         aug_out_dim = args.aug_dim
         enc_in_dim = aug_out_dim if args.aug_type == "feature" else self.dataset.data.x.shape[1]
         enc_out_dim = args.model_dim
-        
-        augmentor = get_augmentor(in_dim=aug_in_dim,  out_dim=aug_out_dim, conf=args)
-
         encoder_type = "sage" if args.mini_batch else "gcn"
-        net = Encoder(
+        if self.data_module.is_hetro:
+            augmentor = get_augmentor(
+                in_dim=None,  out_dim=aug_out_dim, conf=args, 
+                metadata=self.data_module.metadata
+            ).to(self.device)
+            data = self._loader[0]
+            self._init_lazy_module(augmentor, data)
+            net = HetroEncoder(
+                in_dim=enc_in_dim, out_dim=enc_out_dim,
+                dropout=args.dropout, num_layers=args.num_gnn_layers,
+                encoder=encoder_type, metadata=self.data_module.metadata)
+        else:
+            augmentor = get_augmentor(
+                in_dim=aug_in_dim,  out_dim=aug_out_dim, conf=args, 
+            )
+            net = Encoder(
             in_dim=enc_in_dim, out_dim=enc_out_dim,
             dropout=args.dropout, num_layers=args.num_gnn_layers,
             encoder=encoder_type, skip=True)
@@ -69,53 +105,90 @@ class NodeClassificationExperiment:
         optimizer = torch.optim.Adam(
             learner.parameters(), lr=args.lr)
         return learner, optimizer
+    
+    def _init_lazy_module(self, module, data):
+        utils.log("Initializing a lazy module")
+        with torch.no_grad():
+            surgeon_input = utils.to_surgeon_input(batch=data, device=self.device)
+            module(**surgeon_input)
 
     def __train_epoch(self, epoch, epochs):
         learner, optimizer = self.state.learner, self.state.optimizer
-        losses = []
         
         torch.autograd.set_detect_anomaly(True)
+        t_loss = 0
         for data in self._loader:
-            surgeon_input = utils.to_surgeon_input(batch=data, full_data=self.dataset.data)
+            surgeon_input = utils.to_surgeon_input(
+                batch=data, full_data=self.dataset.data, device=self.device
+            )
             z1, z2 = learner(**surgeon_input)
-            loss = self.state.loss_fn(z1, z2)
+            u_loss = self.state.loss_fn(z1, z2)
             mod_reg = self.state.mod_reg(learner.augmentor)
-            loss = loss + mod_reg
+            loss = u_loss + mod_reg
             optimizer.zero_grad()
             loss.backward()
             optimizer.step()
-            msg = f"Epoch: {epoch + 1:03d}/{epochs:03d} training loss: {loss:.4f}"
-            utils.log(msg, verbose=self._args.verbose)
-            losses.append(float(loss.detach()))
-        return np.mean(losses)
+            
+            if self.wandb_log:
+                wandb.log({"train_loss": loss.item(), "unreg_loss": u_loss.item()})
+                
+            utils.log(msg="Self-supervised training, epoch:"
+                      f" {epoch + 1:03d}/{epochs:03d} "
+                      f"training loss: {loss:.4f}", verbose=True, cr=True)
+            t_loss +=loss.item()
+            
+        return t_loss / len(self._loader)
+    
+    def finish(self):
+        if self.wandb_log:
+            wandb.finish()
 
     def run(self):
-        print("Training ...")
         args = self._args
         learner, optimizer = self.state.learner, self.state.optimizer
-        learner.train()
+        delta = []
         for epoch in range(args.epochs):
+            start = time.time()
+            learner.train()
             self.__train_epoch(epoch, args.epochs)
-
+            delta.append(time.time() - start)
+            print()
+            val_score = self.eval_model(test=True)
+            if self.early_stop.stop(val_score, epoch):
+                utils.log("Early Stoping!", verbose=True)
+                break
+                
+        delta = delta[1:] if len(delta) > 1 else delta
+        utils.log("Average run time per epoch: "
+                  f"{np.mean(delta):.6f}, "
+                  f"+/- {np.std(delta):.6f}", verbose=True)
+            
     def resume(self, epochs=1):
         for epoch in range(epochs):
             self.__train_epoch(epoch, epochs)
+            self.eval_model()
 
-    def pause_training_mode(self):
-        self.state.learner.eval()
-
-    def infer_embedding(self):
+    def infer_embedding(self, target_key=None):
         args = self._args
         
         learner = self.state.learner
         learner.eval()
         data = self.dataset.data
-        edge_attr = data.edge_attr if hasattr(data, "edge_attr") else None
-        inference_args = {"x": data.x, "edge_index": data.edge_index, "edge_attr": edge_attr}
+        inference_args = utils.to_surgeon_input(
+            data, device=self.device
+        )
+        # if self.data_module.is_hetro:
+        #     inference_args = {"x": data.x_dict, "edge_index": data.edge_index_dict, "edge_attr": None}
+        # else:
+        #     edge_attr = data.edge_attr if hasattr(data, "edge_attr") else None
+        #     inference_args = {"x": data.x, "edge_index": data.edge_index, "edge_attr": edge_attr}
         if args.mini_batch:
             inference_args["loader"] = self._subgraph_loader
             
-        return learner.infer(**inference_args)
+        embeddings = learner.infer(**inference_args)
+        if target_key is None:
+            return embeddings
+        return embeddings[target_key]
         
     def save_hon(self):
         path = osp.join(self.dataset.processed_dir, "hon.pt")
@@ -123,18 +196,109 @@ class NodeClassificationExperiment:
 
     def reset_model(self):
         self.__init_state()
+        
+    def eval_model(self, split=None, test=True):
+        self.state.learner.eval()
+        data = self.data_module.get_classification_data()
+        train_mask = data.train_mask
+        val_mask = data.val_mask
+        test_mask = data.test_mask
+        
+        if split is not None:
+            train_mask = train_mask[:, split]
+            val_mask = val_mask[:, split]
+            test_mask = test_mask[:, split]
+            
+        if not test:
+            test_mask = val_mask
+            
+        target_key = self.data_module.labeled_nodetype()
+        num_classes = self.data_module.num_classes
+        embeddings = self.infer_embedding(target_key)
+        y = data.y
+        if target_key is not None:
+            train_rate = 0.2
+            # if final:
+            #     train_rates = [0.2, 0.4, 0.6, 0.8]
+                
+            #evaluator = HetroEval(train_rates=train_rates)
+            # embeddings = embeddings[test_mask]#.detach().cpu().numpy()
+            # y = data.y[test_mask]#.cpu().numpy()
+            # results = evaluator.execute(x, y)
+            # return results
+            
+            # Alternative
+            te_idx = test_mask.nonzero().flatten()
+            te_idx = te_idx[torch.randperm(te_idx.shape[0])]
+            tr_size = int(te_idx.shape[0] * train_rate)
+            tr_idx, te_idx = te_idx[:tr_size], te_idx[tr_size:]
+            train_mask = torch.zeros(y.shape[0], dtype=torch.bool)
+            train_mask[tr_idx] = True
+            val_mask = torch.zeros(y.shape[0], dtype=torch.bool)
+            val_mask[te_idx] = True
+            test_mask = val_mask
+            self._args.task = "hetro"
+            
+        
+        if not test:
+            test_mask = val_mask
+        # print(train_mask.shape, val_mask.shape, test_mask.shape)
+        # print(f"Num train: {train_mask.sum()}, num valid: {val_mask.sum()}, num test: {test_mask.sum()}")
+        # exit(0)
+        evaluator = LinearEvaluationExperiment(
+            in_dim=embeddings.shape[1], 
+            out_dim=num_classes, 
+            device=embeddings.device, 
+            task=self._args.task, 
+            epochs=100) #epochs = 500 for reddit and yelp.
+        self.best_score_tracker.set_metric_to_track(
+            evaluator._metric_to_track
+        )
+        
+        val_scores, test_scores = evaluator.execute(
+            x=embeddings, y=data.y, 
+            train_mask=train_mask, 
+            val_mask=val_mask, 
+            test_mask=test_mask
+        )
+        self.best_score_tracker.track(val_scores, test_scores)
+        val_score = np.mean(val_scores[evaluator._metric_to_track])
+        if self.wandb_log:
+            wandb.log({"val_score": val_score})
+        if isinstance(val_score, tuple):
+            print(val_score)
+            return val_score[1]
+        return val_score
 
 
 class LinearEvaluationExperiment:
 
-    def __init__(self, in_dim, out_dim, device, task, verbose=True, epochs=100):
+    def __init__(self, in_dim, out_dim, device, task, eval_step=0, verbose=True, epochs=100):
         self._in_dim = in_dim
         self._out_dim = out_dim
         self._device = device
         self._task = task
-        self._metric = "accuracy" if task in {"bc", "mcc"} else "roc_auc"
         self._verbose = verbose
         self._epochs = epochs
+        self.__init_metric()
+        self.__set_eval_step(eval_step)
+        
+    def __init_metric(self):
+        if self._task in {"hetro"}:
+            self._metric_to_track = "f1macro"
+        elif self._task in {"bc", "mcc"}:
+            self._metric_to_track = "accuracy"
+        else:
+            self._metric_to_track = "roc_auc"
+            
+    def __set_eval_step(self, eval_step):
+        if eval_step == 0:
+            self._eval_step = 1
+        elif isinstance(eval_step, int):
+            self._eval_step = eval_step
+        elif isinstance(eval_step, float):
+            assert 0 < eval_step <= 1
+            self._eval_step = int(self._epochs * eval_step)
 
     def __feed(self, x, y, mask=None):
         if mask is None:
@@ -146,31 +310,47 @@ class LinearEvaluationExperiment:
         )
 
     def score(self, scores, truth):
-
-        if self._metric == "accuracy":
-            prediction = torch.argmax(scores, dim=1)
-            score = (
-                    (prediction.to(self._device) == truth.to(self._device)).sum() /
-                    truth.shape[0]
-            )
-            return score * 100
-        elif self._metric == "roc_auc":
+        score_dict = {}
+        truth = truth.detach().cpu().numpy()
+        if self._task in {"bc", "mcc"}:
+            prediction = torch.argmax(scores, dim=1).detach().cpu().numpy()
+            score_dict["accuracy"] = accuracy_score(truth, prediction)
+            # score_dict["accuracy"] = (
+            #         (prediction.to(self._device) == truth.to(self._device)).sum() /
+            #         truth.shape[0]
+            # ).detach().cpu().numpy()
+        if self._task in {"hetro"}:
+            prediction = torch.argmax(scores, dim=1).detach().cpu().numpy()
+            score_dict["f1micro"] = f1_score(truth, prediction, average="micro")
+            score_dict["f1macro"] = f1_score(truth, prediction, average="macro")
+        elif self._task == "mlc":
             # scores = (scores > 0).float()
-            return (
-                roc_auc_score(truth.detach().cpu().numpy(), scores.detach().cpu().numpy())
+            score_dict["roc_auc"] = roc_auc_score(
+                truth, 
+                scores.detach().cpu().numpy()
             )
+        return score_dict
 
     def execute(self, x, y, train_mask, val_mask=None, test_mask=None):
+        
+        def format_score_dict(score_dict):
+            return " ".join(f"{metric}: {score:.4f}" 
+                            for metric, score in score_dict.items())
+        
         if train_mask.ndim == 1:
             train_mask = train_mask.view(-1, 1)
             val_mask = val_mask.view(-1, 1)
-            test_mask = test_mask.view(-1, 1)
+            if test_mask is not None:
+                test_mask = test_mask.view(-1, 1)
+            else:
+                test_mask = val_mask
         num_splits = train_mask.shape[1]
         
         seeds = range(num_splits)
-        val_accs, test_accs = [], []
+        val_scores, test_scores = {}, {}
         val_msg = test_msg = ""
-        val_best = test_best = 0.
+        val_best = {self._metric_to_track: 0}
+        test_best = {self._metric_to_track: 0}
         
         for split_idx in range(num_splits):
             torch.manual_seed(seeds[split_idx])
@@ -190,40 +370,68 @@ class LinearEvaluationExperiment:
                 loss.backward()
                 opt.step()
 
-                if (i + 1) % 5 == 0:
+                if (i + 1) % self._eval_step == 0:
                     self._classifier.eval()
-                    train_acc = self.score(scores=logits, truth=y[train_mask].squeeze())
+                    train_score = self.score(scores=logits, truth=y[train_mask].squeeze())
                     val_logits, _ = self.__feed(x=x, y=y, mask=val_mask)
-                    val_acc = self.score(scores=val_logits, truth=y[val_mask].squeeze())
+                    val_score = self.score(scores=val_logits, truth=y[val_mask].squeeze())
                     test_logits, _ = self.__feed(x=x, y=y, mask=test_mask)
-                    test_acc = self.score(scores=test_logits, truth=y[test_mask].squeeze())
-
-                    if val_acc > val_best:
-                        val_best = val_acc
-                        test_best = test_acc
+                    test_score = self.score(scores=test_logits, truth=y[test_mask].squeeze())
+                    
+                    if val_score[self._metric_to_track] > val_best[self._metric_to_track]:
+                        val_best = val_score
+                        test_best = test_score
                         
-            # train_acc = self.score(scores=logits, truth=y[train_mask].squeeze())
-            # val_logits, _ = self.__feed(x=x, y=y, mask=val_mask)
-            # val_acc = self.score(scores=val_logits, truth=y[val_mask].squeeze())
-            # test_logits, _ = self.__feed(x=x, y=y, mask=test_mask)
-            # test_acc = self.score(scores=test_logits, truth=y[test_mask].squeeze())
-            val_acc, test_acc = val_best, test_best
-            val_msg = f"validation {self._metric}: {val_acc:.2f}"
-            test_msg = f"test {self._metric}: {test_acc:.2f}"
-
-            val_accs.append(float(val_acc))
-            test_accs.append(float(test_acc))
+            val_score, test_score = val_best, test_best
+            fmt_train_score = format_score_dict(train_score)
+            fmt_val_score = format_score_dict(val_score)
+            fmt_test_score = format_score_dict(test_score)
+            train_msg = f"Training {fmt_train_score}"
+            val_msg = f"validation {fmt_val_score}"
+            test_msg = f"test {fmt_test_score}"
+            for key in val_score:
+                if key not in val_scores:
+                    val_scores[key] = [val_score[key]]
+                    test_scores[key] = [test_score[key]]
+                else:
+                    val_scores[key].append(val_score[key])
+                    test_scores[key].append(test_score[key])
 
             msg = (
-                f"Split {split_idx + 1:03d}/{num_splits:03d}. Training {self._metric}: "
-                f"{train_acc:.2f} {val_msg} {test_msg}".strip()
+                f"Split {split_idx + 1:03d}/{num_splits:03d}. {train_msg} "
+                f"{val_msg} {test_msg}".strip()
             )
 
             utils.log(msg, verbose=self._verbose)
+        
+        return val_scores, test_scores
 
-        if len(val_accs) > 0:
-            print("Validation", np.mean(val_accs), np.std(val_accs))
-        if len(test_accs) > 0:
-            print("Test", np.mean(test_accs), np.std(test_accs))
 
-        return np.mean(val_accs)
+class HetroEval:
+    
+    def __init__(self, train_rates):
+        self.train_rates = train_rates
+        
+        
+    def execute(self, x, y):
+        train_rates = self.train_rates
+        if isinstance(train_rates, float):
+            train_rates = [train_rates]
+            
+        results = {}
+        for rate in train_rates:
+            clf = linear_model.LogisticRegression(solver="liblinear", max_iter=500, random_state=1)
+            tr_size = int(x.shape[0] * rate)
+            tr_x = x[:tr_size]
+            tr_y = y[:tr_size]
+            te_x = x[tr_size:]
+            te_y = y[tr_size:]
+            clf.fit(tr_x, tr_y)
+            te_pred = clf.predict(te_x)
+            mic = f1_score(te_y, te_pred, average="micro")
+            mac = f1_score(te_y, te_pred, average="macro")
+            results[rate] = mic, mac
+            print(f"Rate: {rate} f1-micro: {mic}, f1-macro: {mac}")
+        if isinstance(self.train_rates, float):
+            return results[self.train_rates][1]
+        return results

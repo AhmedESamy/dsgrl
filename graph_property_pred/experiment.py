@@ -72,8 +72,25 @@ class GraphPropertyPredictionExperiment:
             "loss": osp.join(log_dir, f"{self.conf.aug_type.lower()}_loss_log.txt"),
             "aug_reg": osp.join(log_dir, f"{self.conf.aug_type.lower()}_aug_reg_log.txt")
         }
+
+    def __reset_loss_fn(self):
+        """
+        Initializes or resets the loss function during training and model-selection.
+        """
+        conf = self.conf
+        self.mod_reg_fn = ModelRegularizer(λ=conf.mod_w)
+        self.loss_fn = RegularizedLoss(α=conf.inv_w, β=conf.var_w, γ=conf.cov_w)
+        print(self.loss_fn)
+        print(self.mod_reg_fn)
+        print(f"Reseting loss function with invariance weight: {conf.inv_w} "
+              f"and variance weight: {conf.var_w} and "
+              f"covariance weight: {conf.cov_w} and "
+              f"model regularization weight {conf.mod_w}")
     
     def _sample_params(self, trial):
+        """
+        Samples hyper-parameter values for during model selection (tuning) experiment
+        """
         self.conf.lr = trial.suggest_float("lr", 1e-4, 1e-1)
         self.conf.dropout = trial.suggest_float("dropout", 0.0, 1.0)
         self.conf.num_gnn_layers = trial.suggest_categorical("num_gnn_layers", [1, 2, 3, 4])
@@ -87,15 +104,6 @@ class GraphPropertyPredictionExperiment:
         if self.conf.aug_type in {"top", "topology", "t"}:
             self.conf.edge_mul = trial.suggest_int("edge_mul", 2, 10)
             self.conf.keep_edges = trial.suggest_categorical("keep_edges", [True, False])
-    
-    def __reset_loss_fn(self):
-        conf = self.conf
-        self.mod_reg_fn = ModelRegularizer(λ=conf.mod_w)
-        self.loss_fn = RegularizedLoss(α=conf.inv_w, β=conf.var_w, γ=conf.cov_w)
-        print(f"Reseting loss function with invariance weight: {conf.inv_w} "
-              f"and variance weight: {conf.var_w} and "
-              f"covariance weight: {conf.cov_w} and "
-              f"model regularization weight {conf.mod_w}")
             
     def _init(self):
         """
@@ -127,10 +135,13 @@ class GraphPropertyPredictionExperiment:
         has_edge_attr = (hasattr(self.dataset.data, "edge_attr") and 
                          self.dataset.data.edge_attr is not None)
         edge_dim = self.dataset.data.edge_attr.shape[1] if has_edge_attr else None
+
+        # Build the augmenter network
         augmentor = get_augmentor(
             num_features=self.dataset.num_features, num_edge_features=edge_dim, conf=self.conf)
-        
+        # Build the encoder network
         encoder = get_encoder(conf=self.conf, num_features=self.dataset.num_features)
+        # Build the complete DSGRL model
         model = DSGRL(augmentor=augmentor, encoder=encoder).to(device)
         
         optimizer = torch.optim.Adam(model.parameters(), lr=conf.lr)
@@ -139,6 +150,7 @@ class GraphPropertyPredictionExperiment:
                           agg_fn=self.agg_fn, epochs=conf.epochs)
         
         if not conf.tune:
+            # Evaluate before training the model to see how the random model compares to the trained model.
             self.evaluator = LinearEvaluationExperiment(
                 splits=self.splits, report_test=True, verbose=not conf.tune)
             x, y = trainer.infer(self.loader, desc="Inferring embeddings before training")

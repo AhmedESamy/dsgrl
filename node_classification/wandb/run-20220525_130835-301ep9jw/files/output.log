@@ -1,0 +1,115 @@
+Automatically selected device: gpu 1
+Initializing model ...
+======================Before Self-Supervised Training=============================
+
+Training a linear classifier for split 1: 100%|████████████████████████████████████████████████████████████| 500/500 [00:03<00:00, 137.66it/s]
+Training a linear classifier for split 1:  26%|███████████████▊                                             | 130/500 [00:01<00:03, 94.60it/s]
+Split 001/001. Training f1micro: 0.8250 f1macro: 0.8244 validation f1micro: 0.4719 f1macro: 0.4013 test f1micro: 0.4719 f1macro: 0.4013
+==========================Self-Supervised Training================================
+Training a linear classifier for split 1: 100%|████████████████████████████████████████████████████████████| 500/500 [00:02<00:00, 179.57it/s]
+Training a linear classifier for split 1:  26%|███████████████▋                                            | 131/500 [00:00<00:01, 316.55it/s]
+Split 001/001. Training f1micro: 0.9500 f1macro: 0.9488 validation f1micro: 0.4531 f1macro: 0.4089 test f1micro: 0.4531 f1macro: 0.4089
+Training a linear classifier for split 1: 100%|████████████████████████████████████████████████████████████| 500/500 [00:01<00:00, 308.48it/s]
+Training a linear classifier for split 1:  38%|███████████████████████                                     | 192/500 [00:00<00:00, 308.15it/s]
+Split 001/001. Training f1micro: 0.9500 f1macro: 0.9512 validation f1micro: 0.4906 f1macro: 0.4338 test f1micro: 0.4906 f1macro: 0.4338
+Training a linear classifier for split 1: 100%|████████████████████████████████████████████████████████████| 500/500 [00:01<00:00, 308.21it/s]
+Training a linear classifier for split 1:  49%|█████████████████████████████▌                              | 246/500 [00:00<00:00, 299.71it/s]
+Split 001/001. Training f1micro: 0.8875 f1macro: 0.8834 validation f1micro: 0.4594 f1macro: 0.4019 test f1micro: 0.4594 f1macro: 0.4019
+Training a linear classifier for split 1: 100%|████████████████████████████████████████████████████████████| 500/500 [00:01<00:00, 298.34it/s]
+Training a linear classifier for split 1:  56%|█████████████████████████████████▌                          | 280/500 [00:00<00:00, 299.28it/s]
+Split 001/001. Training f1micro: 0.9750 f1macro: 0.9742 validation f1micro: 0.4750 f1macro: 0.4215 test f1micro: 0.4750 f1macro: 0.4215
+Training a linear classifier for split 1: 100%|████████████████████████████████████████████████████████████| 500/500 [00:02<00:00, 246.96it/s]
+Training a linear classifier for split 1:  10%|██████▏                                                       | 50/500 [00:00<00:04, 93.85it/s]
+Split 001/001. Training f1micro: 1.0000 f1macro: 1.0000 validation f1micro: 0.4562 f1macro: 0.4438 test f1micro: 0.4562 f1macro: 0.4438
+
+
+Training a linear classifier for split 1:  86%|████████████████████████████████████████████████████▌        | 431/500 [00:04<00:00, 93.85it/s]
+Split 001/001. Training f1micro: 1.0000 f1macro: 1.0000 validation f1micro: 0.4531 f1macro: 0.4251 test f1micro: 0.4531 f1macro: 0.4251
+Training a linear classifier for split 1: 100%|█████████████████████████████████████████████████████████████| 500/500 [00:05<00:00, 93.97it/s]
+
+
+Training a linear classifier for split 1:  90%|███████████████████████████████████████████████████████      | 451/500 [00:04<00:00, 94.35it/s]
+Split 001/001. Training f1micro: 1.0000 f1macro: 1.0000 validation f1micro: 0.4750 f1macro: 0.4373 test f1micro: 0.4750 f1macro: 0.4373
+Training a linear classifier for split 1: 100%|█████████████████████████████████████████████████████████████| 500/500 [00:05<00:00, 94.10it/s]
+
+Training a linear classifier for split 1:  58%|███████████████████████████████████▍                         | 290/500 [00:03<00:02, 94.66it/s]
+
+Training a linear classifier for split 1:  97%|██████████████████████████████████████████████████████████▏ | 485/500 [00:05<00:00, 107.24it/s]
+Training a linear classifier for split 1: 100%|█████████████████████████████████████████████████████████████| 500/500 [00:05<00:00, 95.06it/s]
+
+Training a linear classifier for split 1:  64%|███████████████████████████████████████                      | 320/500 [00:03<00:01, 93.79it/s]
+Split 001/001. Training f1micro: 1.0000 f1macro: 1.0000 validation f1micro: 0.4719 f1macro: 0.4273 test f1micro: 0.4719 f1macro: 0.4273
+
+Training a linear classifier for split 1: 100%|█████████████████████████████████████████████████████████████| 500/500 [00:05<00:00, 93.73it/s]
+
+Training a linear classifier for split 1:  71%|███████████████████████████████████████████                  | 353/500 [00:03<00:01, 94.77it/s]
+Training a linear classifier for split 1: 100%|█████████████████████████████████████████████████████████████| 500/500 [00:05<00:00, 93.99it/s]
+Training a linear classifier for split 1:   0%|                                                                       | 0/500 [00:00<?, ?it/s]
+
+
+Training a linear classifier for split 1:  74%|█████████████████████████████████████████████▏               | 370/500 [00:03<00:01, 93.90it/s]
+Split 001/001. Training f1micro: 0.9750 f1macro: 0.9742 validation f1micro: 0.4781 f1macro: 0.4187 test f1micro: 0.4781 f1macro: 0.4187
+Training a linear classifier for split 1: 100%|█████████████████████████████████████████████████████████████| 500/500 [00:05<00:00, 93.82it/s]
+
+
+Training a linear classifier for split 1:  80%|████████████████████████████████████████████████▉            | 401/500 [00:04<00:01, 93.88it/s]
+Split 001/001. Training f1micro: 0.9875 f1macro: 0.9848 validation f1micro: 0.4688 f1macro: 0.4200 test f1micro: 0.4688 f1macro: 0.4200
+Training a linear classifier for split 1: 100%|█████████████████████████████████████████████████████████████| 500/500 [00:05<00:00, 94.02it/s]
+
+
+Training a linear classifier for split 1:  86%|████████████████████████████████████████████████████▌        | 431/500 [00:04<00:00, 96.61it/s]
+Split 001/001. Training f1micro: 0.9875 f1macro: 0.9848 validation f1micro: 0.4813 f1macro: 0.4372 test f1micro: 0.4813 f1macro: 0.4372
+Training a linear classifier for split 1: 100%|█████████████████████████████████████████████████████████████| 500/500 [00:05<00:00, 94.12it/s]
+
+
+Training a linear classifier for split 1:  92%|███████████████████████████████████████████████████████▉     | 459/500 [00:04<00:00, 92.10it/s]
+Split 001/001. Training f1micro: 0.9875 f1macro: 0.9848 validation f1micro: 0.4594 f1macro: 0.4264 test f1micro: 0.4594 f1macro: 0.4264
+Training a linear classifier for split 1: 100%|█████████████████████████████████████████████████████████████| 500/500 [00:05<00:00, 94.84it/s]
+Training a linear classifier for split 1:  53%|███████████████████████████████▋                            | 264/500 [00:01<00:00, 309.10it/s]
+Split 001/001. Training f1micro: 1.0000 f1macro: 1.0000 validation f1micro: 0.4437 f1macro: 0.4153 test f1micro: 0.4437 f1macro: 0.4153
+Training a linear classifier for split 1: 100%|████████████████████████████████████████████████████████████| 500/500 [00:01<00:00, 260.92it/s]
+Training a linear classifier for split 1:  64%|██████████████████████████████████████▎                     | 319/500 [00:01<00:00, 308.37it/s]
+Split 001/001. Training f1micro: 1.0000 f1macro: 1.0000 validation f1micro: 0.4313 f1macro: 0.4083 test f1micro: 0.4313 f1macro: 0.4083
+Training a linear classifier for split 1: 100%|████████████████████████████████████████████████████████████| 500/500 [00:01<00:00, 305.33it/s]
+Training a linear classifier for split 1:  76%|█████████████████████████████████████████████▍              | 379/500 [00:01<00:00, 309.30it/s]
+Split 001/001. Training f1micro: 1.0000 f1macro: 1.0000 validation f1micro: 0.4531 f1macro: 0.3991 test f1micro: 0.4531 f1macro: 0.3991
+Training a linear classifier for split 1: 100%|████████████████████████████████████████████████████████████| 500/500 [00:01<00:00, 306.69it/s]
+Training a linear classifier for split 1:  87%|████████████████████████████████████████████████████▎       | 436/500 [00:01<00:00, 255.54it/s]
+Split 001/001. Training f1micro: 1.0000 f1macro: 1.0000 validation f1micro: 0.4562 f1macro: 0.4116 test f1micro: 0.4562 f1macro: 0.4116
+Training a linear classifier for split 1: 100%|████████████████████████████████████████████████████████████| 500/500 [00:01<00:00, 287.08it/s]
+Training a linear classifier for split 1:  75%|█████████████████████████████████████████████               | 375/500 [00:01<00:00, 241.92it/s]
+Split 001/001. Training f1micro: 0.9875 f1macro: 0.9894 validation f1micro: 0.4500 f1macro: 0.4072 test f1micro: 0.4500 f1macro: 0.4072
+Training a linear classifier for split 1: 100%|████████████████████████████████████████████████████████████| 500/500 [00:02<00:00, 241.50it/s]
+Training a linear classifier for split 1:  60%|████████████████████████████████████                        | 301/500 [00:01<00:00, 245.70it/s]
+Split 001/001. Training f1micro: 0.9875 f1macro: 0.9894 validation f1micro: 0.4437 f1macro: 0.4016 test f1micro: 0.4437 f1macro: 0.4016
+Training a linear classifier for split 1: 100%|████████████████████████████████████████████████████████████| 500/500 [00:02<00:00, 244.71it/s]
+Training a linear classifier for split 1:  45%|███████████████████████████                                 | 225/500 [00:00<00:01, 241.06it/s]
+Split 001/001. Training f1micro: 0.9875 f1macro: 0.9894 validation f1micro: 0.4469 f1macro: 0.4041 test f1micro: 0.4469 f1macro: 0.4041
+Training a linear classifier for split 1: 100%|████████████████████████████████████████████████████████████| 500/500 [00:02<00:00, 238.57it/s]
+Training a linear classifier for split 1:  30%|██████████████████                                          | 150/500 [00:00<00:01, 238.46it/s]
+Split 001/001. Training f1micro: 0.9875 f1macro: 0.9894 validation f1micro: 0.4375 f1macro: 0.4009 test f1micro: 0.4375 f1macro: 0.4009
+Training a linear classifier for split 1: 100%|████████████████████████████████████████████████████████████| 500/500 [00:02<00:00, 236.00it/s]
+Training a linear classifier for split 1: 100%|████████████████████████████████████████████████████████████| 500/500 [00:02<00:00, 229.09it/s]
+Training a linear classifier for split 1:   0%|                                                                       | 0/500 [00:00<?, ?it/s]
+Split 001/001. Training f1micro: 0.9875 f1macro: 0.9894 validation f1micro: 0.4406 f1macro: 0.4100 test f1micro: 0.4406 f1macro: 0.4100
+Self-supervised training, epoch: 024/100 training loss: 2.0440
+Split 001/001. Training f1micro: 0.9875 f1macro: 0.9894 validation f1micro: 0.4469 f1macro: 0.4024 test f1micro: 0.4469 f1macro: 0.4024
+Training a linear classifier for split 1: 100%|████████████████████████████████████████████████████████████| 500/500 [00:01<00:00, 387.32it/s]
+Training a linear classifier for split 1:  35%|█████████████████████                                       | 176/500 [00:00<00:01, 304.08it/s]
+Split 001/001. Training f1micro: 0.9875 f1macro: 0.9894 validation f1micro: 0.4281 f1macro: 0.3990 test f1micro: 0.4281 f1macro: 0.3990
+Training a linear classifier for split 1: 100%|████████████████████████████████████████████████████████████| 500/500 [00:01<00:00, 302.36it/s]
+Training a linear classifier for split 1:  43%|██████████████████████████                                  | 217/500 [00:00<00:00, 302.79it/s]
+Split 001/001. Training f1micro: 0.9875 f1macro: 0.9894 validation f1micro: 0.4188 f1macro: 0.3903 test f1micro: 0.4188 f1macro: 0.3903
+Training a linear classifier for split 1: 100%|████████████████████████████████████████████████████████████| 500/500 [00:01<00:00, 298.71it/s]
+Training a linear classifier for split 1:  50%|█████████████████████████████▉                              | 249/500 [00:00<00:00, 303.88it/s]
+Split 001/001. Training f1micro: 0.9875 f1macro: 0.9894 validation f1micro: 0.4437 f1macro: 0.3938 test f1micro: 0.4437 f1macro: 0.3938
+Training a linear classifier for split 1: 100%|████████████████████████████████████████████████████████████| 500/500 [00:01<00:00, 299.67it/s]
+Training a linear classifier for split 1:  61%|████████████████████████████████████▊                       | 307/500 [00:01<00:00, 301.93it/s]
+Split 001/001. Training f1micro: 0.9875 f1macro: 0.9894 validation f1micro: 0.4219 f1macro: 0.3948 test f1micro: 0.4219 f1macro: 0.3948
+Training a linear classifier for split 1: 100%|████████████████████████████████████████████████████████████| 500/500 [00:01<00:00, 310.57it/s]
+Training a linear classifier for split 1: 100%|████████████████████████████████████████████████████████████| 500/500 [00:01<00:00, 421.09it/s]
+Split 001/001. Training f1micro: 1.0000 f1macro: 1.0000 validation f1micro: 0.4375 f1macro: 0.4050 test f1micro: 0.4375 f1macro: 0.4050
+Early Stoping!
+=======================After Self-Supervised Training=============================
+Validation:  f1micro: 0.46875, std: 0.0  f1macro: 0.44596956368532986, std: 0.0
+Test:  f1micro: 0.46875, std: 0.0  f1macro: 0.44596956368532986, std: 0.0

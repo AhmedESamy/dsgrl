@@ -1,0 +1,1 @@
+{"train_loss": 1.4867058992385864, "unreg_loss": 1.452286720275879, "mod_reg": 0.0344192236661911, "_timestamp": 1652450662, "_runtime": 237, "_step": 199, "val_score": 89.71229553222656, "_wandb": {"runtime": 237}}

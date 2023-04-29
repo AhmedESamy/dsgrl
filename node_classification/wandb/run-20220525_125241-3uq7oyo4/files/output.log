@@ -1,0 +1,138 @@
+Automatically selected device: gpu 1
+Initializing model ...
+======================Before Self-Supervised Training=============================
+Training a linear classifier for split 1:  36%|█████████████████████▌                                      | 180/500 [00:01<00:02, 134.34it/s]
+Split 001/001. Training f1micro: 0.9375 f1macro: 0.9412 validation f1micro: 0.4813 f1macro: 0.4854 test f1micro: 0.4813 f1macro: 0.4854
+
+Training a linear classifier for split 1: 100%|████████████████████████████████████████████████████████████| 500/500 [00:03<00:00, 135.09it/s]
+
+Training a linear classifier for split 1:  56%|█████████████████████████████████▉                           | 278/500 [00:02<00:02, 96.49it/s]
+
+Training a linear classifier for split 1: 100%|█████████████████████████████████████████████████████████████| 500/500 [00:05<00:00, 96.14it/s]
+
+Training a linear classifier for split 1:  60%|████████████████████████████████████▌                        | 300/500 [00:03<00:02, 96.10it/s]
+
+Training a linear classifier for split 1: 100%|█████████████████████████████████████████████████████████████| 500/500 [00:05<00:00, 94.94it/s]
+
+Training a linear classifier for split 1:  60%|████████████████████████████████████▌                        | 300/500 [00:03<00:02, 95.75it/s]
+Training a linear classifier for split 1: 100%|████████████████████████████████████████████████████████████| 500/500 [00:04<00:00, 112.68it/s]
+Training a linear classifier for split 1:  24%|██████████████▍                                             | 120/500 [00:00<00:01, 283.34it/s]
+Training a linear classifier for split 1: 100%|████████████████████████████████████████████████████████████| 500/500 [00:01<00:00, 281.84it/s]
+Training a linear classifier for split 1:  24%|██████████████▍                                             | 120/500 [00:00<00:01, 282.63it/s]
+Training a linear classifier for split 1: 100%|████████████████████████████████████████████████████████████| 500/500 [00:01<00:00, 280.88it/s]
+Training a linear classifier for split 1:  24%|██████████████▍                                             | 120/500 [00:00<00:01, 283.80it/s]
+Training a linear classifier for split 1: 100%|████████████████████████████████████████████████████████████| 500/500 [00:01<00:00, 268.63it/s]
+Training a linear classifier for split 1:  15%|█████████▏                                                   | 75/500 [00:00<00:01, 230.78it/s]
+
+Training a linear classifier for split 1: 100%|████████████████████████████████████████████████████████████| 500/500 [00:02<00:00, 230.03it/s]
+Split 001/001. Training f1micro: 0.9875 f1macro: 0.9857 validation f1micro: 0.6687 f1macro: 0.6706 test f1micro: 0.6687 f1macro: 0.6706
+Training a linear classifier for split 1: 100%|████████████████████████████████████████████████████████████| 500/500 [00:02<00:00, 231.05it/s]
+Training a linear classifier for split 1:  64%|██████████████████████████████████████▍                     | 320/500 [00:01<00:00, 231.49it/s]
+Training a linear classifier for split 1: 100%|████████████████████████████████████████████████████████████| 500/500 [00:02<00:00, 232.21it/s]
+Training a linear classifier for split 1:  40%|████████████████████████                                    | 200/500 [00:00<00:01, 232.85it/s]
+Training a linear classifier for split 1: 100%|████████████████████████████████████████████████████████████| 500/500 [00:02<00:00, 230.63it/s]
+Training a linear classifier for split 1:  15%|█████████▏                                                   | 75/500 [00:00<00:01, 230.97it/s]
+Training a linear classifier for split 1: 100%|████████████████████████████████████████████████████████████| 500/500 [00:01<00:00, 262.42it/s]
+Training a linear classifier for split 1:  25%|██████████████▉                                             | 124/500 [00:00<00:00, 410.80it/s]
+Training a linear classifier for split 1: 100%|████████████████████████████████████████████████████████████| 500/500 [00:01<00:00, 333.22it/s]
+Training a linear classifier for split 1:  30%|██████████████████                                          | 150/500 [00:00<00:01, 284.17it/s]
+Training a linear classifier for split 1: 100%|████████████████████████████████████████████████████████████| 500/500 [00:01<00:00, 283.58it/s]
+Training a linear classifier for split 1:  30%|█████████████████▉                                          | 149/500 [00:00<00:01, 286.71it/s]
+Training a linear classifier for split 1: 100%|████████████████████████████████████████████████████████████| 500/500 [00:01<00:00, 284.32it/s]
+Training a linear classifier for split 1:  30%|█████████████████▉                                          | 149/500 [00:00<00:01, 287.41it/s]
+Training a linear classifier for split 1: 100%|████████████████████████████████████████████████████████████| 500/500 [00:01<00:00, 332.35it/s]
+Training a linear classifier for split 1:  72%|███████████████████████████████████████████▎                | 361/500 [00:00<00:00, 398.04it/s]
+Training a linear classifier for split 1: 100%|████████████████████████████████████████████████████████████| 500/500 [00:01<00:00, 392.84it/s]
+Training a linear classifier for split 1:  77%|██████████████████████████████████████████████▏             | 385/500 [00:01<00:00, 285.46it/s]
+Training a linear classifier for split 1: 100%|████████████████████████████████████████████████████████████| 500/500 [00:01<00:00, 282.39it/s]
+Training a linear classifier for split 1:  78%|██████████████████████████████████████████████▊             | 390/500 [00:01<00:00, 284.00it/s]
+Training a linear classifier for split 1: 100%|████████████████████████████████████████████████████████████| 500/500 [00:01<00:00, 284.73it/s]
+Training a linear classifier for split 1:  77%|██████████████████████████████████████████████▏             | 385/500 [00:01<00:00, 284.27it/s]
+Training a linear classifier for split 1: 100%|████████████████████████████████████████████████████████████| 500/500 [00:01<00:00, 283.04it/s]
+Training a linear classifier for split 1:  68%|████████████████████████████████████████▊                   | 340/500 [00:01<00:00, 313.25it/s]
+Training a linear classifier for split 1: 100%|████████████████████████████████████████████████████████████| 500/500 [00:02<00:00, 176.12it/s]
+
+
+Training a linear classifier for split 1:  76%|██████████████████████████████████████████████▎              | 380/500 [00:04<00:01, 95.17it/s]
+Training a linear classifier for split 1: 100%|█████████████████████████████████████████████████████████████| 500/500 [00:05<00:00, 95.08it/s]
+
+
+Training a linear classifier for split 1:  78%|███████████████████████████████████████████████▌             | 390/500 [00:04<00:01, 94.93it/s]
+Training a linear classifier for split 1: 100%|█████████████████████████████████████████████████████████████| 500/500 [00:05<00:00, 94.84it/s]
+
+
+Training a linear classifier for split 1:  80%|████████████████████████████████████████████████▊            | 400/500 [00:04<00:01, 94.53it/s]
+Training a linear classifier for split 1: 100%|█████████████████████████████████████████████████████████████| 500/500 [00:05<00:00, 94.40it/s]
+
+
+Training a linear classifier for split 1:  82%|██████████████████████████████████████████████████           | 410/500 [00:04<00:00, 96.56it/s]
+Training a linear classifier for split 1: 100%|█████████████████████████████████████████████████████████████| 500/500 [00:05<00:00, 95.37it/s]
+
+
+Training a linear classifier for split 1:  88%|█████████████████████████████████████████████████████▋       | 440/500 [00:04<00:00, 96.82it/s]
+Training a linear classifier for split 1: 100%|█████████████████████████████████████████████████████████████| 500/500 [00:05<00:00, 96.74it/s]
+
+
+Training a linear classifier for split 1:  90%|██████████████████████████████████████████████████████▉      | 450/500 [00:04<00:00, 96.33it/s]
+Training a linear classifier for split 1: 100%|█████████████████████████████████████████████████████████████| 500/500 [00:05<00:00, 95.49it/s]
+
+
+Training a linear classifier for split 1:  94%|█████████████████████████████████████████████████████████▎   | 470/500 [00:04<00:00, 94.87it/s]
+Training a linear classifier for split 1: 100%|█████████████████████████████████████████████████████████████| 500/500 [00:05<00:00, 95.10it/s]
+
+
+Training a linear classifier for split 1:  98%|███████████████████████████████████████████████████████████▊ | 490/500 [00:05<00:00, 96.58it/s]
+Training a linear classifier for split 1: 100%|█████████████████████████████████████████████████████████████| 500/500 [00:05<00:00, 96.02it/s]
+
+Training a linear classifier for split 1:  62%|█████████████████████████████████████▊                       | 310/500 [00:03<00:01, 96.48it/s]
+Training a linear classifier for split 1: 100%|████████████████████████████████████████████████████████████| 500/500 [00:03<00:00, 129.47it/s]
+Training a linear classifier for split 1:  67%|████████████████████████████████████████▎                   | 336/500 [00:01<00:00, 292.01it/s]
+Training a linear classifier for split 1: 100%|████████████████████████████████████████████████████████████| 500/500 [00:01<00:00, 288.97it/s]
+Training a linear classifier for split 1:  66%|███████████████████████████████████████▌                    | 330/500 [00:01<00:00, 287.82it/s]
+Training a linear classifier for split 1: 100%|████████████████████████████████████████████████████████████| 500/500 [00:01<00:00, 284.92it/s]
+Training a linear classifier for split 1:  66%|███████████████████████████████████████▌                    | 330/500 [00:01<00:00, 285.16it/s]
+Training a linear classifier for split 1: 100%|████████████████████████████████████████████████████████████| 500/500 [00:01<00:00, 283.63it/s]
+
+Training a linear classifier for split 1:  88%|█████████████████████████████████████████████████████▋       | 440/500 [00:03<00:00, 95.10it/s]
+Training a linear classifier for split 1: 100%|████████████████████████████████████████████████████████████| 500/500 [00:03<00:00, 128.92it/s]
+
+
+Training a linear classifier for split 1:  90%|██████████████████████████████████████████████████████▉      | 450/500 [00:04<00:00, 94.85it/s]
+Training a linear classifier for split 1: 100%|█████████████████████████████████████████████████████████████| 500/500 [00:05<00:00, 94.49it/s]
+
+
+Training a linear classifier for split 1:  92%|████████████████████████████████████████████████████████▏    | 461/500 [00:04<00:00, 96.14it/s]
+Training a linear classifier for split 1: 100%|█████████████████████████████████████████████████████████████| 500/500 [00:05<00:00, 95.31it/s]
+
+
+Training a linear classifier for split 1:  86%|███████████████████████████████████████████████████▍        | 429/500 [00:04<00:00, 100.40it/s]
+Training a linear classifier for split 1: 100%|█████████████████████████████████████████████████████████████| 500/500 [00:05<00:00, 96.30it/s]
+
+
+Training a linear classifier for split 1:  90%|██████████████████████████████████████████████████████▉      | 450/500 [00:04<00:00, 97.00it/s]
+Training a linear classifier for split 1: 100%|█████████████████████████████████████████████████████████████| 500/500 [00:05<00:00, 95.69it/s]
+
+
+Training a linear classifier for split 1:  94%|█████████████████████████████████████████████████████████▎   | 470/500 [00:04<00:00, 96.10it/s]
+Training a linear classifier for split 1: 100%|█████████████████████████████████████████████████████████████| 500/500 [00:05<00:00, 95.54it/s]
+
+
+Training a linear classifier for split 1:  98%|███████████████████████████████████████████████████████████▊ | 490/500 [00:05<00:00, 95.97it/s]
+Training a linear classifier for split 1: 100%|█████████████████████████████████████████████████████████████| 500/500 [00:05<00:00, 96.09it/s]
+
+Training a linear classifier for split 1:  62%|█████████████████████████████████████▊                       | 310/500 [00:03<00:01, 96.02it/s]
+
+Training a linear classifier for split 1: 100%|█████████████████████████████████████████████████████████████| 500/500 [00:05<00:00, 95.80it/s]
+
+Training a linear classifier for split 1:  66%|████████████████████████████████████████▎                    | 330/500 [00:03<00:01, 94.62it/s]
+
+Training a linear classifier for split 1: 100%|█████████████████████████████████████████████████████████████| 500/500 [00:05<00:00, 95.89it/s]
+Training a linear classifier for split 1:  32%|███████████████████▌                                         | 160/500 [00:01<00:03, 95.98it/s]
+Training a linear classifier for split 1: 100%|████████████████████████████████████████████████████████████| 500/500 [00:02<00:00, 179.76it/s]
+
+Training a linear classifier for split 1: 100%|████████████████████████████████████████████████████████████| 500/500 [00:01<00:00, 286.64it/s]
+Split 001/001. Training f1micro: 1.0000 f1macro: 1.0000 validation f1micro: 0.6375 f1macro: 0.6391 test f1micro: 0.6375 f1macro: 0.6391
+Early Stoping!
+=======================After Self-Supervised Training=============================
+Validation:  f1micro: 0.75, std: 0.0  f1macro: 0.7496590179717587, std: 0.0
+Test:  f1micro: 0.75, std: 0.0  f1macro: 0.7496590179717587, std: 0.0

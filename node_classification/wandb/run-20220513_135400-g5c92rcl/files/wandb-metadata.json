@@ -1,0 +1,26 @@
+{
+    "os": "Linux-5.4.0-109-generic-x86_64-with-glibc2.31",
+    "python": "3.9.7",
+    "heartbeatAt": "2022-05-13T13:54:03.672293",
+    "startedAt": "2022-05-13T13:54:00.919971",
+    "docker": null,
+    "gpu": "Quadro RTX 5000",
+    "gpu_count": 2,
+    "cpu_count": 48,
+    "cuda": null,
+    "args": [
+        "-wb"
+    ],
+    "state": "running",
+    "program": "/home/zekarias/workspace/projects/dsgrl/node_classification/main.py",
+    "codePath": "node_classification/main.py",
+    "git": {
+        "remote": "https://github.com/zekarias-tilahun/dsgrl",
+        "commit": "e842ce9cc58e915e8ab28a6f3eec2adb74a32e61"
+    },
+    "email": "zekarias.t.kefato@gmail.com",
+    "root": "/home/zekarias/workspace/projects/dsgrl",
+    "host": "precision7920",
+    "username": "zekarias",
+    "executable": "/home/zekarias/.envs/torch/bin/python"
+}

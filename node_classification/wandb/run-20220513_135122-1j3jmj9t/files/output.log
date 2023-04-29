@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/home/zekarias/workspace/projects/dsgrl/node_classification/main.py", line 62, in <module>
+    main()
+  File "/home/zekarias/workspace/projects/dsgrl/node_classification/main.py", line 44, in main
+    exp.run()
+  File "/home/zekarias/workspace/projects/dsgrl/node_classification/experiment.py", line 130, in run
+    self.eval_model()
+  File "/home/zekarias/workspace/projects/dsgrl/node_classification/experiment.py", line 163, in eval_model
+    data = dataset.data
+NameError: name 'dataset' is not defined

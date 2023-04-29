@@ -1,0 +1,27 @@
+Automatically selected device: gpu 1
+Initializing model ...
+======================Before Training=============================
+Training a linear classifier for split 1: 100%|████████████████████████████████████████████████████████████| 500/500 [00:00<00:00, 568.03it/s]
+Training a linear classifier for split 1:  26%|███████████████▎                                            | 128/500 [00:00<00:00, 415.20it/s]
+Num train: 80, num valid: 320, num test: 320
+Split 001/001. Training f1micro: 0.9375 f1macro: 0.9412 validation f1micro: 0.4813 f1macro: 0.4854 test f1micro: 0.4813 f1macro: 0.4854
+Validation f1micro 0.48125000000000007 0.0
+Test f1micro 0.48125000000000007 0.0
+Validation f1macro 0.4854245347396666 0.0
+Test f1macro 0.4854245347396666 0.0
+==========================Training================================
+Training ...
+Num train: 80, num valid: 320, num test: 320
+Split 001/001. Training f1micro: 1.0000 f1macro: 1.0000 validation f1micro: 0.5469 f1macro: 0.5507 test f1micro: 0.5469 f1macro: 0.5507
+Validation f1micro 0.546875 0.0
+Test f1micro 0.546875 0.0
+Validation f1macro 0.5506790895406231 0.0
+Training a linear classifier for split 1: 100%|████████████████████████████████████████████████████████████| 500/500 [00:01<00:00, 414.49it/s]
+Traceback (most recent call last):
+  File "/home/zekarias/workspace/projects/dsgrl/node_classification/main.py", line 39, in <module>
+    main()
+  File "/home/zekarias/workspace/projects/dsgrl/node_classification/main.py", line 26, in main
+    exp.run()
+  File "/home/zekarias/workspace/projects/dsgrl/node_classification/experiment.py", line 146, in run
+    if self.early_stop.stop(val_score, epoch):
+AttributeError: 'NodeClassificationExperiment' object has no attribute 'early_stop'

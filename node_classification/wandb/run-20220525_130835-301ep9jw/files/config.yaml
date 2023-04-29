@@ -1,0 +1,125 @@
+wandb_version: 1
+
+_wandb:
+  desc: null
+  value:
+    cli_version: 0.12.16
+    framework: huggingface
+    huggingface_version: 4.17.0
+    is_jupyter_run: false
+    is_kaggle_kernel: true
+    python_version: 3.9.7
+    start_time: 1653484115
+    t:
+      1:
+      - 1
+      - 5
+      - 9
+      - 11
+      - 35
+      - 40
+      - 41
+      - 49
+      - 51
+      - 53
+      - 55
+      2:
+      - 1
+      - 5
+      - 9
+      - 11
+      - 35
+      - 40
+      - 41
+      - 49
+      - 51
+      - 53
+      - 55
+      3:
+      - 2
+      - 13
+      - 16
+      4: 3.9.7
+      5: 0.12.16
+      6: 4.17.0
+      8:
+      - 2
+      - 5
+aug_dim:
+  desc: null
+  value: 204
+aug_type:
+  desc: null
+  value: feature
+batch_size:
+  desc: null
+  value: 1024
+cov_w:
+  desc: null
+  value: 0.820534254770421
+dropout:
+  desc: null
+  value: 0.4063114993953734
+edge_mul:
+  desc: null
+  value: 2
+entity:
+  desc: null
+  value: zekarias
+epochs:
+  desc: null
+  value: 100
+inv_w:
+  desc: null
+  value: 0.412438350318845
+keep_edges:
+  desc: null
+  value: false
+lr:
+  desc: null
+  value: 0.008834372456424995
+mini_batch:
+  desc: null
+  value: false
+mod_w:
+  desc: null
+  value: 0.06018646167321014
+model_dim:
+  desc: null
+  value: 64
+name:
+  desc: null
+  value: imdb
+num_aug_layers:
+  desc: null
+  value: 2
+num_gnn_layers:
+  desc: null
+  value: 2
+patience:
+  desc: null
+  value: 20
+root:
+  desc: null
+  value: /data/zekarias/data/cikm2022
+task:
+  desc: null
+  value: mcc
+trials:
+  desc: null
+  value: 500
+tune:
+  desc: null
+  value: false
+var_w:
+  desc: null
+  value: 0.6459027020853503
+verbose:
+  desc: null
+  value: false
+wandb:
+  desc: null
+  value: true
+workers:
+  desc: null
+  value: 32

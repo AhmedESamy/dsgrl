@@ -1,0 +1,241 @@
+
+Training a linear classifier for split 1:  56%|█████████████████████████████████████████████████                                       | 279/500 [00:01<00:00, 224.13it/s]
+Training a linear classifier for split 1: 100%|████████████████████████████████████████████████████████████████████████████████████████| 500/500 [00:02<00:00, 238.89it/s]
+Training a linear classifier for split 2:  47%|█████████████████████████████████████████▎                                              | 235/500 [00:01<00:01, 215.49it/s]
+Training a linear classifier for split 2: 100%|████████████████████████████████████████████████████████████████████████████████████████| 500/500 [00:02<00:00, 209.02it/s]
+Training a linear classifier for split 3:  40%|███████████████████████████████████▏                                                    | 200/500 [00:00<00:01, 267.73it/s]
+Training a linear classifier for split 3: 100%|████████████████████████████████████████████████████████████████████████████████████████| 500/500 [00:02<00:00, 237.81it/s]
+Training a linear classifier for split 4:  33%|█████████████████████████████▏                                                          | 166/500 [00:00<00:01, 247.06it/s]
+Training a linear classifier for split 4: 100%|████████████████████████████████████████████████████████████████████████████████████████| 500/500 [00:02<00:00, 223.39it/s]
+Training a linear classifier for split 5:  24%|█████████████████████▎                                                                  | 121/500 [00:00<00:01, 237.56it/s]
+Training a linear classifier for split 5: 100%|████████████████████████████████████████████████████████████████████████████████████████| 500/500 [00:02<00:00, 213.39it/s]
+
+Training a linear classifier for split 6:  84%|█████████████████████████████████████████████████████████████████████████▋              | 419/500 [00:02<00:00, 255.45it/s]
+Split 006/010. Training accuracy: 96.28 validation accuracy: 88.40 test accuracy: 86.56
+Training a linear classifier for split 6: 100%|████████████████████████████████████████████████████████████████████████████████████████| 500/500 [00:02<00:00, 188.28it/s]
+Training a linear classifier for split 7: 100%|████████████████████████████████████████████████████████████████████████████████████████| 500/500 [00:01<00:00, 340.32it/s]
+Training a linear classifier for split 8:  11%|█████████▊                                                                               | 55/500 [00:00<00:00, 539.39it/s]
+Training a linear classifier for split 8: 100%|████████████████████████████████████████████████████████████████████████████████████████| 500/500 [00:01<00:00, 455.88it/s]
+Training a linear classifier for split 9:  77%|███████████████████████████████████████████████████████████████████▊                    | 385/500 [00:01<00:00, 341.42it/s]
+Split 009/010. Training accuracy: 96.28 validation accuracy: 88.40 test accuracy: 86.56
+Split 010/010. Training accuracy: 95.48 validation accuracy: 88.40 test accuracy: 86.56
+Validation 88.28247528076172 0.1520122529105254
+Training a linear classifier for split 9: 100%|████████████████████████████████████████████████████████████████████████████████████████| 500/500 [00:01<00:00, 335.05it/s]
+Training a linear classifier for split 10: 100%|███████████████████████████████████████████████████████████████████████████████████████| 500/500 [00:01<00:00, 317.53it/s]
+Split 001/010. Training accuracy: 96.54 validation accuracy: 88.06 test accuracy: 87.06
+Training a linear classifier for split 1: 100%|████████████████████████████████████████████████████████████████████████████████████████| 500/500 [00:01<00:00, 280.07it/s]
+Training a linear classifier for split 2:   4%|███▌                                                                                     | 20/500 [00:00<00:02, 187.86it/s]
+
+Training a linear classifier for split 2: 100%|████████████████████████████████████████████████████████████████████████████████████████| 500/500 [00:02<00:00, 217.13it/s]
+Training a linear classifier for split 3:  86%|███████████████████████████████████████████████████████████████████████████▎            | 428/500 [00:01<00:00, 216.33it/s]
+Training a linear classifier for split 3: 100%|████████████████████████████████████████████████████████████████████████████████████████| 500/500 [00:02<00:00, 217.84it/s]
+Training a linear classifier for split 4:  74%|█████████████████████████████████████████████████████████████████                       | 370/500 [00:01<00:00, 269.87it/s]
+Training a linear classifier for split 4: 100%|████████████████████████████████████████████████████████████████████████████████████████| 500/500 [00:01<00:00, 256.98it/s]
+Training a linear classifier for split 5:  68%|███████████████████████████████████████████████████████████▊                            | 340/500 [00:01<00:00, 253.39it/s]
+Training a linear classifier for split 5: 100%|████████████████████████████████████████████████████████████████████████████████████████| 500/500 [00:02<00:00, 219.34it/s]
+Training a linear classifier for split 6:  59%|████████████████████████████████████████████████████                                    | 296/500 [00:01<00:00, 207.32it/s]
+Training a linear classifier for split 6: 100%|████████████████████████████████████████████████████████████████████████████████████████| 500/500 [00:02<00:00, 219.36it/s]
+Training a linear classifier for split 7:  44%|██████████████████████████████████████▌                                                 | 219/500 [00:00<00:01, 206.63it/s]
+Training a linear classifier for split 7: 100%|████████████████████████████████████████████████████████████████████████████████████████| 500/500 [00:02<00:00, 220.02it/s]
+Training a linear classifier for split 8:  26%|██████████████████████▌                                                                 | 128/500 [00:00<00:02, 185.32it/s]
+Training a linear classifier for split 8: 100%|████████████████████████████████████████████████████████████████████████████████████████| 500/500 [00:02<00:00, 189.25it/s]
+
+Training a linear classifier for split 9:  96%|████████████████████████████████████████████████████████████████████████████████████▍   | 480/500 [00:02<00:00, 256.54it/s]
+Split 009/010. Training accuracy: 96.81 validation accuracy: 88.14 test accuracy: 87.29
+Split 010/010. Training accuracy: 96.54 validation accuracy: 88.23 test accuracy: 87.18
+Validation 88.13426361083984 0.046952563030954825
+Training a linear classifier for split 9: 100%|████████████████████████████████████████████████████████████████████████████████████████| 500/500 [00:02<00:00, 210.13it/s]
+Training a linear classifier for split 10: 100%|███████████████████████████████████████████████████████████████████████████████████████| 500/500 [00:01<00:00, 345.83it/s]
+Training a linear classifier for split 1:  40%|███████████████████████████████████▌                                                    | 202/500 [00:00<00:00, 493.41it/s]
+Training a linear classifier for split 1: 100%|████████████████████████████████████████████████████████████████████████████████████████| 500/500 [00:01<00:00, 412.78it/s]
+Training a linear classifier for split 2:  61%|█████████████████████████████████████████████████████▋                                  | 305/500 [00:01<00:00, 211.19it/s]
+Training a linear classifier for split 2: 100%|████████████████████████████████████████████████████████████████████████████████████████| 500/500 [00:02<00:00, 227.04it/s]
+Training a linear classifier for split 3:  49%|███████████████████████████████████████████                                             | 245/500 [00:00<00:00, 277.81it/s]
+Training a linear classifier for split 3: 100%|████████████████████████████████████████████████████████████████████████████████████████| 500/500 [00:02<00:00, 223.36it/s]
+Training a linear classifier for split 4:  30%|██████████████████████████                                                              | 148/500 [00:00<00:01, 201.88it/s]
+Training a linear classifier for split 4: 100%|████████████████████████████████████████████████████████████████████████████████████████| 500/500 [00:02<00:00, 218.67it/s]
+
+Training a linear classifier for split 5:  78%|████████████████████████████████████████████████████████████████████▋                   | 390/500 [00:02<00:00, 229.59it/s]
+Training a linear classifier for split 5: 100%|████████████████████████████████████████████████████████████████████████████████████████| 500/500 [00:02<00:00, 201.18it/s]
+Training a linear classifier for split 6:  69%|█████████████████████████████████████████████████████████████                           | 347/500 [00:01<00:00, 239.92it/s]
+Training a linear classifier for split 6: 100%|████████████████████████████████████████████████████████████████████████████████████████| 500/500 [00:02<00:00, 232.43it/s]
+Training a linear classifier for split 7:  64%|████████████████████████████████████████████████████████▎                               | 320/500 [00:01<00:00, 199.64it/s]
+Split 007/010. Training accuracy: 96.01 validation accuracy: 88.49 test accuracy: 87.36
+Training a linear classifier for split 7: 100%|████████████████████████████████████████████████████████████████████████████████████████| 500/500 [00:02<00:00, 246.81it/s]
+Training a linear classifier for split 8: 100%|████████████████████████████████████████████████████████████████████████████████████████| 500/500 [00:01<00:00, 400.64it/s]
+Training a linear classifier for split 9:  15%|█████████████▏                                                                           | 74/500 [00:00<00:01, 292.19it/s]
+Training a linear classifier for split 9: 100%|████████████████████████████████████████████████████████████████████████████████████████| 500/500 [00:01<00:00, 331.36it/s]
+Training a linear classifier for split 10:  29%|█████████████████████████▌                                                             | 147/500 [00:00<00:01, 268.21it/s]
+Split 010/010. Training accuracy: 96.28 validation accuracy: 88.49 test accuracy: 87.36
+Validation 88.4917221069336 0.0
+Training a linear classifier for split 10: 100%|███████████████████████████████████████████████████████████████████████████████████████| 500/500 [00:02<00:00, 204.62it/s]
+
+Training a linear classifier for split 1:  64%|████████████████████████████████████████████████████████▎                               | 320/500 [00:01<00:01, 173.46it/s]
+Training a linear classifier for split 1: 100%|████████████████████████████████████████████████████████████████████████████████████████| 500/500 [00:03<00:00, 156.48it/s]
+
+Training a linear classifier for split 2:  85%|██████████████████████████████████████████████████████████████████████████▍             | 423/500 [00:03<00:00, 153.51it/s]
+Training a linear classifier for split 2: 100%|████████████████████████████████████████████████████████████████████████████████████████| 500/500 [00:03<00:00, 149.46it/s]
+Training a linear classifier for split 3:  53%|██████████████████████████████████████████████▍                                         | 264/500 [00:01<00:01, 169.57it/s]
+Training a linear classifier for split 3: 100%|████████████████████████████████████████████████████████████████████████████████████████| 500/500 [00:02<00:00, 187.57it/s]
+Training a linear classifier for split 4:  55%|████████████████████████████████████████████████▌                                       | 276/500 [00:01<00:00, 249.37it/s]
+Training a linear classifier for split 4: 100%|████████████████████████████████████████████████████████████████████████████████████████| 500/500 [00:01<00:00, 316.80it/s]
+Training a linear classifier for split 5: 100%|████████████████████████████████████████████████████████████████████████████████████████| 500/500 [00:01<00:00, 356.71it/s]
+Training a linear classifier for split 6:   4%|███▏                                                                                     | 18/500 [00:00<00:02, 179.60it/s]
+
+Training a linear classifier for split 6:  83%|█████████████████████████████████████████████████████████████████████████▏              | 416/500 [00:02<00:00, 182.04it/s]
+Training a linear classifier for split 6: 100%|████████████████████████████████████████████████████████████████████████████████████████| 500/500 [00:02<00:00, 188.91it/s]
+Training a linear classifier for split 7:  62%|██████████████████████████████████████████████████████▉                                 | 312/500 [00:01<00:00, 188.84it/s]
+Training a linear classifier for split 7: 100%|████████████████████████████████████████████████████████████████████████████████████████| 500/500 [00:02<00:00, 209.65it/s]
+Training a linear classifier for split 8:  40%|███████████████████████████████████                                                     | 199/500 [00:01<00:01, 179.40it/s]
+Training a linear classifier for split 8: 100%|████████████████████████████████████████████████████████████████████████████████████████| 500/500 [00:02<00:00, 211.20it/s]
+Training a linear classifier for split 9: 100%|████████████████████████████████████████████████████████████████████████████████████████| 500/500 [00:02<00:00, 203.92it/s]
+Training a linear classifier for split 10:  15%|█████████████▌                                                                          | 77/500 [00:00<00:01, 248.35it/s]
+
+Training a linear classifier for split 10: 100%|███████████████████████████████████████████████████████████████████████████████████████| 500/500 [00:02<00:00, 212.38it/s]
+Split 010/010. Training accuracy: 96.01 validation accuracy: 88.23 test accuracy: 86.92
+Validation 88.05579986572266 0.21355915593159122
+Test 86.87319946289062 0.10823588840325361
+Training a linear classifier for split 1:  86%|███████████████████████████████████████████████████████████████████████████▊            | 431/500 [00:01<00:00, 268.54it/s]
+Training a linear classifier for split 1: 100%|████████████████████████████████████████████████████████████████████████████████████████| 500/500 [00:02<00:00, 220.68it/s]
+Training a linear classifier for split 2:  62%|██████████████████████████████████████████████████████▌                                 | 310/500 [00:01<00:01, 170.13it/s]
+Training a linear classifier for split 2: 100%|████████████████████████████████████████████████████████████████████████████████████████| 500/500 [00:02<00:00, 192.35it/s]
+Training a linear classifier for split 3:  58%|██████████████████████████████████████████████████▊                                     | 289/500 [00:01<00:00, 262.58it/s]
+Training a linear classifier for split 3: 100%|████████████████████████████████████████████████████████████████████████████████████████| 500/500 [00:02<00:00, 243.98it/s]
+Training a linear classifier for split 4:  24%|████████████████████▉                                                                   | 119/500 [00:00<00:01, 213.72it/s]
+Training a linear classifier for split 4: 100%|████████████████████████████████████████████████████████████████████████████████████████| 500/500 [00:02<00:00, 206.95it/s]
+Training a linear classifier for split 5:   5%|████▎                                                                                    | 24/500 [00:00<00:02, 237.88it/s]
+Training a linear classifier for split 5: 100%|████████████████████████████████████████████████████████████████████████████████████████| 500/500 [00:01<00:00, 267.86it/s]
+Training a linear classifier for split 6:  32%|████████████████████████████▌                                                           | 162/500 [00:00<00:00, 534.23it/s]
+Training a linear classifier for split 6: 100%|████████████████████████████████████████████████████████████████████████████████████████| 500/500 [00:01<00:00, 453.87it/s]
+Training a linear classifier for split 7: 100%|████████████████████████████████████████████████████████████████████████████████████████| 500/500 [00:01<00:00, 431.59it/s]
+Training a linear classifier for split 8:   7%|█████▊                                                                                   | 33/500 [00:00<00:01, 326.98it/s]
+Split 007/010. Training accuracy: 95.48 validation accuracy: 88.40 test accuracy: 86.86
+Training a linear classifier for split 8: 100%|████████████████████████████████████████████████████████████████████████████████████████| 500/500 [00:01<00:00, 266.31it/s]
+
+Training a linear classifier for split 9:  85%|██████████████████████████████████████████████████████████████████████████▍             | 423/500 [00:02<00:00, 162.45it/s]
+Training a linear classifier for split 9: 100%|████████████████████████████████████████████████████████████████████████████████████████| 500/500 [00:02<00:00, 200.64it/s]
+Training a linear classifier for split 10:  81%|██████████████████████████████████████████████████████████████████████▎                | 404/500 [00:01<00:00, 203.78it/s]
+Split 010/010. Training accuracy: 96.28 validation accuracy: 88.40 test accuracy: 86.86
+Validation 88.15169906616211 0.27418032017251304
+Training a linear classifier for split 10: 100%|███████████████████████████████████████████████████████████████████████████████████████| 500/500 [00:02<00:00, 227.59it/s]
+Training a linear classifier for split 1:  63%|███████████████████████████████████████████████████████▎                                | 314/500 [00:01<00:00, 201.87it/s]
+Training a linear classifier for split 1: 100%|████████████████████████████████████████████████████████████████████████████████████████| 500/500 [00:02<00:00, 218.70it/s]
+Training a linear classifier for split 2:  52%|█████████████████████████████████████████████▉                                          | 261/500 [00:01<00:01, 197.32it/s]
+Training a linear classifier for split 2: 100%|████████████████████████████████████████████████████████████████████████████████████████| 500/500 [00:02<00:00, 212.55it/s]
+Training a linear classifier for split 3:  40%|██████████████████████████████████▊                                                     | 198/500 [00:00<00:01, 241.03it/s]
+Training a linear classifier for split 3: 100%|████████████████████████████████████████████████████████████████████████████████████████| 500/500 [00:02<00:00, 206.01it/s]
+Training a linear classifier for split 4: 100%|████████████████████████████████████████████████████████████████████████████████████████| 500/500 [00:02<00:00, 193.99it/s]
+Training a linear classifier for split 5:   0%|                                                                                                   | 0/500 [00:00<?, ?it/s]
+
+Training a linear classifier for split 5:  89%|██████████████████████████████████████████████████████████████████████████████▋         | 447/500 [00:02<00:00, 255.17it/s]
+Training a linear classifier for split 5: 100%|████████████████████████████████████████████████████████████████████████████████████████| 500/500 [00:02<00:00, 212.52it/s]
+Training a linear classifier for split 6:  66%|██████████████████████████████████████████████████████████                              | 330/500 [00:01<00:00, 217.03it/s]
+Training a linear classifier for split 6: 100%|████████████████████████████████████████████████████████████████████████████████████████| 500/500 [00:02<00:00, 212.68it/s]
+Training a linear classifier for split 7:  81%|███████████████████████████████████████████████████████████████████████▋                | 407/500 [00:01<00:00, 436.49it/s]
+Split 007/010. Training accuracy: 95.74 validation accuracy: 88.75 test accuracy: 87.78
+Training a linear classifier for split 7: 100%|████████████████████████████████████████████████████████████████████████████████████████| 500/500 [00:01<00:00, 322.45it/s]
+Training a linear classifier for split 8: 100%|████████████████████████████████████████████████████████████████████████████████████████| 500/500 [00:01<00:00, 412.78it/s]
+Training a linear classifier for split 9:  47%|█████████████████████████████████████████                                               | 233/500 [00:00<00:00, 367.23it/s]
+Training a linear classifier for split 9: 100%|████████████████████████████████████████████████████████████████████████████████████████| 500/500 [00:01<00:00, 253.20it/s]
+Training a linear classifier for split 10: 100%|███████████████████████████████████████████████████████████████████████████████████████| 500/500 [00:02<00:00, 213.51it/s]
+Training a linear classifier for split 1:   7%|██████▏                                                                                  | 35/500 [00:00<00:01, 342.43it/s]
+Split 010/010. Training accuracy: 97.07 validation accuracy: 89.01 test accuracy: 87.57
+Validation 88.79686431884765 0.17545481714614378
+
+Training a linear classifier for split 1:  87%|████████████████████████████████████████████████████████████████████████████▌           | 435/500 [00:02<00:00, 188.73it/s]
+Training a linear classifier for split 1: 100%|████████████████████████████████████████████████████████████████████████████████████████| 500/500 [00:02<00:00, 197.20it/s]
+Training a linear classifier for split 2:  74%|████████████████████████████████████████████████████████████████▊                       | 368/500 [00:01<00:00, 219.98it/s]
+Training a linear classifier for split 2: 100%|████████████████████████████████████████████████████████████████████████████████████████| 500/500 [00:02<00:00, 216.60it/s]
+Training a linear classifier for split 3:  49%|███████████████████████████████████████████▎                                            | 246/500 [00:00<00:00, 280.04it/s]
+Training a linear classifier for split 3: 100%|████████████████████████████████████████████████████████████████████████████████████████| 500/500 [00:02<00:00, 237.96it/s]
+Training a linear classifier for split 4:  28%|████████████████████████▍                                                               | 139/500 [00:00<00:01, 190.26it/s]
+Training a linear classifier for split 4: 100%|████████████████████████████████████████████████████████████████████████████████████████| 500/500 [00:02<00:00, 210.56it/s]
+Training a linear classifier for split 5:  38%|█████████████████████████████████                                                       | 188/500 [00:00<00:00, 374.07it/s]
+Training a linear classifier for split 5: 100%|████████████████████████████████████████████████████████████████████████████████████████| 500/500 [00:01<00:00, 403.42it/s]
+Training a linear classifier for split 6:  98%|██████████████████████████████████████████████████████████████████████████████████████  | 489/500 [00:01<00:00, 280.00it/s]
+Training a linear classifier for split 6: 100%|████████████████████████████████████████████████████████████████████████████████████████| 500/500 [00:01<00:00, 373.15it/s]
+Training a linear classifier for split 7:  94%|███████████████████████████████████████████████████████████████████████████████████     | 472/500 [00:01<00:00, 209.58it/s]
+Training a linear classifier for split 7: 100%|████████████████████████████████████████████████████████████████████████████████████████| 500/500 [00:02<00:00, 240.25it/s]
+Training a linear classifier for split 8:  84%|██████████████████████████████████████████████████████████████████████████▎             | 422/500 [00:01<00:00, 270.67it/s]
+Training a linear classifier for split 8: 100%|████████████████████████████████████████████████████████████████████████████████████████| 500/500 [00:02<00:00, 224.31it/s]
+Training a linear classifier for split 9:  66%|█████████████████████████████████████████████████████████▋                              | 328/500 [00:01<00:00, 240.20it/s]
+Split 009/010. Training accuracy: 96.54 validation accuracy: 89.10 test accuracy: 87.92
+Split 010/010. Training accuracy: 96.54 validation accuracy: 89.10 test accuracy: 87.92
+Validation 89.06713180541992 0.10461959838867188
+Training a linear classifier for split 9: 100%|████████████████████████████████████████████████████████████████████████████████████████| 500/500 [00:02<00:00, 220.96it/s]
+Training a linear classifier for split 10: 100%|███████████████████████████████████████████████████████████████████████████████████████| 500/500 [00:01<00:00, 499.27it/s]
+Training a linear classifier for split 1:  41%|████████████████████████████████████                                                    | 205/500 [00:00<00:00, 504.28it/s]
+Training a linear classifier for split 1: 100%|████████████████████████████████████████████████████████████████████████████████████████| 500/500 [00:01<00:00, 470.53it/s]
+Training a linear classifier for split 2:  71%|██████████████████████████████████████████████████████████████▍                         | 355/500 [00:01<00:00, 229.62it/s]
+Training a linear classifier for split 2: 100%|████████████████████████████████████████████████████████████████████████████████████████| 500/500 [00:02<00:00, 248.08it/s]
+Training a linear classifier for split 3:  48%|██████████████████████████████████████████                                              | 239/500 [00:01<00:01, 178.77it/s]
+Training a linear classifier for split 3: 100%|████████████████████████████████████████████████████████████████████████████████████████| 500/500 [00:02<00:00, 193.37it/s]
+Training a linear classifier for split 4:  38%|█████████████████████████████████▎                                                      | 189/500 [00:00<00:01, 234.41it/s]
+Training a linear classifier for split 4: 100%|████████████████████████████████████████████████████████████████████████████████████████| 500/500 [00:02<00:00, 241.43it/s]
+Training a linear classifier for split 5:  35%|██████████████████████████████▊                                                         | 175/500 [00:00<00:01, 252.22it/s]
+Training a linear classifier for split 5: 100%|████████████████████████████████████████████████████████████████████████████████████████| 500/500 [00:02<00:00, 218.78it/s]
+Training a linear classifier for split 6: 100%|████████████████████████████████████████████████████████████████████████████████████████| 500/500 [00:02<00:00, 220.77it/s]
+Training a linear classifier for split 7:  14%|████████████▍                                                                            | 70/500 [00:00<00:01, 245.40it/s]
+
+Training a linear classifier for split 7:  90%|███████████████████████████████████████████████████████████████████████████████▏        | 450/500 [00:02<00:00, 214.76it/s]
+Training a linear classifier for split 7: 100%|████████████████████████████████████████████████████████████████████████████████████████| 500/500 [00:02<00:00, 194.81it/s]
+Training a linear classifier for split 8:  69%|████████████████████████████████████████████████████████████▎                           | 343/500 [00:01<00:00, 189.72it/s]
+Training a linear classifier for split 8: 100%|████████████████████████████████████████████████████████████████████████████████████████| 500/500 [00:02<00:00, 207.41it/s]
+Training a linear classifier for split 9:  60%|█████████████████████████████████████████████████████▏                                  | 302/500 [00:01<00:00, 253.33it/s]
+Training a linear classifier for split 9: 100%|████████████████████████████████████████████████████████████████████████████████████████| 500/500 [00:02<00:00, 224.84it/s]
+Training a linear classifier for split 10:  36%|███████████████████████████████▍                                                       | 181/500 [00:00<00:01, 262.99it/s]
+Split 010/010. Training accuracy: 96.81 validation accuracy: 89.19 test accuracy: 88.00
+Validation 89.04969329833985 0.1663355599670494
+Training a linear classifier for split 10: 100%|███████████████████████████████████████████████████████████████████████████████████████| 500/500 [00:02<00:00, 219.72it/s]
+Training a linear classifier for split 1:   9%|███████▊                                                                                 | 44/500 [00:00<00:01, 436.79it/s]
+Training a linear classifier for split 1: 100%|████████████████████████████████████████████████████████████████████████████████████████| 500/500 [00:01<00:00, 254.35it/s]
+
+Training a linear classifier for split 2:  86%|███████████████████████████████████████████████████████████████████████████▋            | 430/500 [00:02<00:00, 139.40it/s]
+Training a linear classifier for split 2: 100%|████████████████████████████████████████████████████████████████████████████████████████| 500/500 [00:02<00:00, 207.60it/s]
+Training a linear classifier for split 3: 100%|████████████████████████████████████████████████████████████████████████████████████████| 500/500 [00:01<00:00, 268.58it/s]
+Training a linear classifier for split 4:   0%|                                                                                                   | 0/500 [00:00<?, ?it/s]
+Split 003/010. Training accuracy: 95.74 validation accuracy: 88.93 test accuracy: 87.88
+Training a linear classifier for split 4: 100%|████████████████████████████████████████████████████████████████████████████████████████| 500/500 [00:01<00:00, 292.51it/s]
+Training a linear classifier for split 5:  22%|███████████████████                                                                     | 108/500 [00:00<00:00, 460.72it/s]
+Training a linear classifier for split 5: 100%|████████████████████████████████████████████████████████████████████████████████████████| 500/500 [00:01<00:00, 462.32it/s]
+Training a linear classifier for split 6:  82%|████████████████████████████████████████████████████████████████████████▌               | 412/500 [00:01<00:00, 257.34it/s]
+Training a linear classifier for split 6: 100%|████████████████████████████████████████████████████████████████████████████████████████| 500/500 [00:01<00:00, 290.01it/s]
+Training a linear classifier for split 7:  67%|███████████████████████████████████████████████████████████▎                            | 337/500 [00:01<00:00, 253.78it/s]
+Training a linear classifier for split 7: 100%|████████████████████████████████████████████████████████████████████████████████████████| 500/500 [00:02<00:00, 227.88it/s]
+Training a linear classifier for split 8:  57%|██████████████████████████████████████████████████▏                                     | 285/500 [00:01<00:01, 187.46it/s]
+Training a linear classifier for split 8: 100%|████████████████████████████████████████████████████████████████████████████████████████| 500/500 [00:02<00:00, 244.58it/s]
+Training a linear classifier for split 9:  60%|█████████████████████████████████████████████████████▏                                  | 302/500 [00:01<00:00, 248.87it/s]
+Training a linear classifier for split 9: 100%|████████████████████████████████████████████████████████████████████████████████████████| 500/500 [00:02<00:00, 223.84it/s]
+Training a linear classifier for split 10:  96%|███████████████████████████████████████████████████████████████████████████████████▌   | 480/500 [00:02<00:00, 226.30it/s]
+Traceback (most recent call last):
+  File "/home/zekarias/workspace/projects/dsgrl/node_classification/main.py", line 62, in <module>
+    main()
+  File "/home/zekarias/workspace/projects/dsgrl/node_classification/main.py", line 44, in main
+    exp.run()
+  File "/home/zekarias/workspace/projects/dsgrl/node_classification/experiment.py", line 130, in run
+    self.eval_model()
+  File "/home/zekarias/workspace/projects/dsgrl/node_classification/experiment.py", line 168, in eval_model
+    val_score = evaluator.execute(
+  File "/home/zekarias/workspace/projects/dsgrl/node_classification/experiment.py", line 235, in execute
+    logits, loss = self.__feed(x=x, y=y, mask=train_mask)
+  File "/home/zekarias/workspace/projects/dsgrl/node_classification/experiment.py", line 190, in __feed
+    return self._classifier(
+  File "/home/zekarias/.envs/torch/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1102, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/zekarias/workspace/projects/dsgrl/node_classification/model.py", line 36, in forward
+    loss = self.loss_fn(prd, y.to(self.device))
+  File "/home/zekarias/.envs/torch/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1102, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/zekarias/.envs/torch/lib/python3.9/site-packages/torch/nn/modules/loss.py", line 1150, in forward
+    return F.cross_entropy(input, target, weight=self.weight,
+  File "/home/zekarias/.envs/torch/lib/python3.9/site-packages/torch/nn/functional.py", line 2846, in cross_entropy
+    return torch._C._nn.cross_entropy_loss(input, target, weight, _Reduction.get_enum(reduction), ignore_index, label_smoothing)
+  File "/home/zekarias/.envs/torch/lib/python3.9/traceback.py", line 197, in format_stack
+    return format_list(extract_stack(f, limit=limit))
+  File "/home/zekarias/.envs/torch/lib/python3.9/traceback.py", line 211, in extract_stack
+    stack = StackSummary.extract(walk_stack(f), limit=limit)
+  File "/home/zekarias/.envs/torch/lib/python3.9/traceback.py", line 359, in extract
+    result.append(FrameSummary(
+  File "/home/zekarias/.envs/torch/lib/python3.9/traceback.py", line 257, in __init__
+    self._line = line
+KeyboardInterrupt

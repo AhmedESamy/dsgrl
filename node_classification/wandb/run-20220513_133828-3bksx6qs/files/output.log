@@ -1,0 +1,9 @@
+Data(x=[7650, 745], edge_index=[2, 238162], y=[7650], train_mask=[7650, 10], val_mask=[7650, 10], test_mask=[7650, 10])
+Automatically selected device: gpu 1
+RegularizedLoss(
+	α=0.32604472923417915,
+	β=1.0,
+	γ=0.08147974745880311,
+	log=[]
+)
+Initializing model ...

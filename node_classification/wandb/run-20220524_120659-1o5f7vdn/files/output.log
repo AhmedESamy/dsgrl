@@ -1,0 +1,114 @@
+Automatically selected device: gpu 1
+Initializing model ...
+Training a linear classifier for split 1:  19%|███████████▋                                                  | 94/500 [00:01<00:05, 72.49it/s]
+======================Before Training=============================
+
+
+
+Training a linear classifier for split 1: 100%|█████████████████████████████████████████████████████████████| 500/500 [00:06<00:00, 74.99it/s]
+Split 001/001. Training f1micro: 1.0000 f1macro: 1.0000 validation f1micro: 0.5156 f1macro: 0.5119 test f1micro: 0.5156 f1macro: 0.5119
+Validation f1micro 0.515625 0.0
+Test f1micro 0.515625 0.0
+Validation f1macro 0.5118665312272619 0.0
+Test f1macro 0.5118665312272619 0.0
+==========================Training================================
+Training ...
+Training a linear classifier for split 1:  28%|████████████████▊                                           | 140/500 [00:01<00:03, 109.09it/s]
+
+
+Training a linear classifier for split 1:  82%|█████████████████████████████████████████████████▉           | 409/500 [00:05<00:01, 62.65it/s]
+Split 001/001. Training f1micro: 0.9875 f1macro: 0.9857 validation f1micro: 0.5750 f1macro: 0.5742 test f1micro: 0.5750 f1macro: 0.5742
+Validation f1micro 0.575 0.0
+Test f1micro 0.575 0.0
+Validation f1macro 0.5742475319270692 0.0
+
+Training a linear classifier for split 1: 100%|█████████████████████████████████████████████████████████████| 500/500 [00:06<00:00, 73.36it/s]
+Num train: 80, num valid: 320, num test: 320
+
+
+Training a linear classifier for split 1:  85%|███████████████████████████████████████████████████▉         | 426/500 [00:05<00:01, 67.71it/s]
+Split 001/001. Training f1micro: 0.9875 f1macro: 0.9857 validation f1micro: 0.6031 f1macro: 0.6048 test f1micro: 0.6031 f1macro: 0.6048
+Validation f1micro 0.603125 0.0
+Test f1micro 0.603125 0.0
+Validation f1macro 0.6048147414305528 0.0
+Test f1macro 0.6048147414305528 0.0
+Training a linear classifier for split 1: 100%|█████████████████████████████████████████████████████████████| 500/500 [00:06<00:00, 71.61it/s]
+
+
+
+Training a linear classifier for split 1:  88%|█████████████████████████████████████████████████████▋       | 440/500 [00:06<00:00, 90.54it/s]
+Split 001/001. Training f1micro: 1.0000 f1macro: 1.0000 validation f1micro: 0.6188 f1macro: 0.6178 test f1micro: 0.6188 f1macro: 0.6178
+Validation f1micro 0.61875 0.0
+Test f1micro 0.61875 0.0
+Validation f1macro 0.6178018323359384 0.0
+Test f1macro 0.6178018323359384 0.0
+Training a linear classifier for split 1: 100%|█████████████████████████████████████████████████████████████| 500/500 [00:07<00:00, 70.12it/s]
+
+
+
+Training a linear classifier for split 1:  95%|█████████████████████████████████████████████████████████▊   | 474/500 [00:06<00:00, 66.36it/s]
+Split 001/001. Training f1micro: 1.0000 f1macro: 1.0000 validation f1micro: 0.6281 f1macro: 0.6257 test f1micro: 0.6281 f1macro: 0.6257
+Validation f1micro 0.628125 0.0
+Test f1micro 0.628125 0.0
+Validation f1macro 0.6256584957858844 0.0
+Test f1macro 0.6256584957858844 0.0
+Training a linear classifier for split 1: 100%|█████████████████████████████████████████████████████████████| 500/500 [00:06<00:00, 72.76it/s]
+
+
+Training a linear classifier for split 1:  73%|████████████████████████████████████████████▊                | 367/500 [00:05<00:01, 91.18it/s]
+Split 001/001. Training f1micro: 1.0000 f1macro: 1.0000 validation f1micro: 0.6344 f1macro: 0.6340 test f1micro: 0.6344 f1macro: 0.6340
+Validation f1micro 0.634375 0.0
+Test f1micro 0.634375 0.0
+Validation f1macro 0.6340462483896037 0.0
+
+Training a linear classifier for split 1: 100%|█████████████████████████████████████████████████████████████| 500/500 [00:06<00:00, 74.10it/s]
+Num train: 80, num valid: 320, num test: 320
+
+
+Training a linear classifier for split 1:  79%|████████████████████████████████████████████████▎            | 396/500 [00:05<00:01, 81.07it/s]
+Split 001/001. Training f1micro: 1.0000 f1macro: 1.0000 validation f1micro: 0.6469 f1macro: 0.6466 test f1micro: 0.6469 f1macro: 0.6466
+Validation f1micro 0.646875 0.0
+Test f1micro 0.646875 0.0
+Validation f1macro 0.646577914674737 0.0
+
+Training a linear classifier for split 1: 100%|█████████████████████████████████████████████████████████████| 500/500 [00:06<00:00, 71.81it/s]
+Num train: 80, num valid: 320, num test: 320
+
+
+Training a linear classifier for split 1:  97%|███████████████████████████████████████████████████████████▏ | 485/500 [00:05<00:00, 60.48it/s]
+Split 001/001. Training f1micro: 1.0000 f1macro: 1.0000 validation f1micro: 0.6438 f1macro: 0.6436 test f1micro: 0.6438 f1macro: 0.6436
+Validation f1micro 0.64375 0.0
+Test f1micro 0.64375 0.0
+Validation f1macro 0.6436442648061361 0.0
+Test f1macro 0.6436442648061361 0.0
+Training a linear classifier for split 1: 100%|█████████████████████████████████████████████████████████████| 500/500 [00:06<00:00, 80.11it/s]
+
+
+
+
+
+Training a linear classifier for split 1:  96%|██████████████████████████████████████████████████████████▋  | 481/500 [00:10<00:00, 46.06it/s]
+Split 001/001. Training f1micro: 1.0000 f1macro: 1.0000 validation f1micro: 0.6438 f1macro: 0.6438 test f1micro: 0.6438 f1macro: 0.6438
+Validation f1micro 0.64375 0.0
+Test f1micro 0.64375 0.0
+Validation f1macro 0.6438218447253183 0.0
+Test f1macro 0.6438218447253183 0.0
+Training a linear classifier for split 1: 100%|█████████████████████████████████████████████████████████████| 500/500 [00:11<00:00, 45.08it/s]
+
+Training a linear classifier for split 1:  39%|███████████████████████▉                                     | 196/500 [00:03<00:05, 55.59it/s]
+Traceback (most recent call last):
+  File "/home/zekarias/workspace/projects/dsgrl/node_classification/main.py", line 39, in <module>
+    main()
+  File "/home/zekarias/workspace/projects/dsgrl/node_classification/main.py", line 26, in main
+    exp.run()
+  File "/home/zekarias/workspace/projects/dsgrl/node_classification/experiment.py", line 142, in run
+    self.eval_model()
+  File "/home/zekarias/workspace/projects/dsgrl/node_classification/experiment.py", line 238, in eval_model
+    val_score = evaluator.execute(
+  File "/home/zekarias/workspace/projects/dsgrl/node_classification/experiment.py", line 338, in execute
+    loss.backward()
+  File "/home/zekarias/.envs/torch/lib/python3.9/site-packages/torch/_tensor.py", line 307, in backward
+    torch.autograd.backward(self, gradient, retain_graph, create_graph, inputs=inputs)
+  File "/home/zekarias/.envs/torch/lib/python3.9/site-packages/torch/autograd/__init__.py", line 154, in backward
+    Variable._execution_engine.run_backward(
+KeyboardInterrupt

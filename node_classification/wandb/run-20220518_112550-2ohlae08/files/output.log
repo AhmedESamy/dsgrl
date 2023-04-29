@@ -1,0 +1,417 @@
+Data(x=[7650, 745], edge_index=[2, 238162], y=[7650], train_mask=[7650, 10], val_mask=[7650, 10], test_mask=[7650, 10])
+Automatically selected device: gpu 1
+RegularizedLoss(
+	α=1,
+	β=1.0,
+	γ=1,
+	log=[]
+)
+Initializing model ...
+======================Before Training=============================
+Training a linear classifier for split 1: 100%|████████| 500/500 [00:00<00:00, 712.82it/s]
+Training a linear classifier for split 1:  84%|██████▊ | 422/500 [00:00<00:00, 585.45it/s]
+Split 001/001. Training accuracy: 97.87 validation accuracy: 87.10 test accuracy: 86.73
+Validation 87.09677124023438 0.0
+Test 86.73086547851562 0.0
+Training ...
+Split 001/001. Training accuracy: 96.01 validation accuracy: 87.10 test accuracy: 87.10
+Validation 87.09677124023438 0.0
+Training a linear classifier for split 1: 100%|████████| 500/500 [00:00<00:00, 583.88it/s]
+Training a linear classifier for split 1: 100%|████████| 500/500 [00:00<00:00, 564.94it/s]
+Training a linear classifier for split 1:  93%|███████▍| 463/500 [00:00<00:00, 561.24it/s]
+Split 001/001. Training accuracy: 96.01 validation accuracy: 87.97 test accuracy: 87.97
+Validation 87.96861267089844 0.0
+Test 87.96861267089844 0.0
+Split 001/001. Training accuracy: 96.54 validation accuracy: 86.40 test accuracy: 86.40
+Validation 86.39930725097656 0.0
+Training a linear classifier for split 1: 100%|████████| 500/500 [00:00<00:00, 559.79it/s]
+Training a linear classifier for split 1: 100%|████████| 500/500 [00:00<00:00, 544.01it/s]
+Training a linear classifier for split 1:  84%|██████▋ | 419/500 [00:00<00:00, 511.87it/s]
+Split 001/001. Training accuracy: 96.01 validation accuracy: 86.66 test accuracy: 86.66
+Validation 86.66085815429688 0.0
+Test 86.66085815429688 0.0
+Split 001/001. Training accuracy: 96.28 validation accuracy: 86.84 test accuracy: 86.84
+Validation 86.83522033691406 0.0
+Training a linear classifier for split 1: 100%|████████| 500/500 [00:00<00:00, 504.84it/s]
+Training a linear classifier for split 1: 100%|████████| 500/500 [00:00<00:00, 521.86it/s]
+Training a linear classifier for split 1:  88%|███████ | 439/500 [00:00<00:00, 615.46it/s]
+Split 001/001. Training accuracy: 96.01 validation accuracy: 88.14 test accuracy: 88.14
+Validation 88.14298248291016 0.0
+Test 88.14298248291016 0.0
+Split 001/001. Training accuracy: 96.54 validation accuracy: 88.93 test accuracy: 88.93
+Validation 88.9276351928711 0.0
+Training a linear classifier for split 1: 100%|████████| 500/500 [00:00<00:00, 617.52it/s]
+Training a linear classifier for split 1: 100%|████████| 500/500 [00:00<00:00, 583.95it/s]
+Training a linear classifier for split 1: 100%|████████| 500/500 [00:00<00:00, 559.12it/s]
+Training a linear classifier for split 1:   0%|                   | 0/500 [00:00<?, ?it/s]
+Split 001/001. Training accuracy: 96.01 validation accuracy: 88.06 test accuracy: 88.06
+Validation 88.05579376220703 0.0
+Test 88.05579376220703 0.0
+Split 001/001. Training accuracy: 95.74 validation accuracy: 87.79 test accuracy: 87.79
+Validation 87.79424285888672 0.0
+Training a linear classifier for split 1: 100%|████████| 500/500 [00:00<00:00, 573.58it/s]
+Training a linear classifier for split 1: 100%|████████| 500/500 [00:00<00:00, 556.23it/s]
+Training a linear classifier for split 1:   0%|                   | 0/500 [00:00<?, ?it/s]
+Split 001/001. Training accuracy: 95.48 validation accuracy: 87.97 test accuracy: 87.97
+Validation 87.96861267089844 0.0
+Test 87.96861267089844 0.0
+Split 001/001. Training accuracy: 95.48 validation accuracy: 88.58 test accuracy: 88.58
+Validation 88.57890319824219 0.0
+Test 88.57890319824219 0.0
+Split 001/001. Training accuracy: 95.48 validation accuracy: 88.67 test accuracy: 88.67
+Validation 88.66608428955078 0.0
+Test 88.66608428955078 0.0
+Split 001/001. Training accuracy: 95.21 validation accuracy: 88.40 test accuracy: 88.40
+Validation 88.40453338623047 0.0
+Training a linear classifier for split 1: 100%|████████| 500/500 [00:00<00:00, 528.13it/s]
+Training a linear classifier for split 1: 100%|████████| 500/500 [00:01<00:00, 493.81it/s]
+Split 001/001. Training accuracy: 95.74 validation accuracy: 88.06 test accuracy: 88.06
+Validation 88.05579376220703 0.0
+Test 88.05579376220703 0.0
+Split 001/001. Training accuracy: 95.74 validation accuracy: 88.58 test accuracy: 88.58
+Validation 88.57890319824219 0.0
+Test 88.57890319824219 0.0
+Training a linear classifier for split 1: 100%|████████| 500/500 [00:00<00:00, 547.73it/s]
+Training a linear classifier for split 1: 100%|████████| 500/500 [00:00<00:00, 558.65it/s]
+Training a linear classifier for split 1:   0%|                   | 0/500 [00:00<?, ?it/s]
+Split 001/001. Training accuracy: 96.28 validation accuracy: 88.49 test accuracy: 88.49
+Validation 88.4917221069336 0.0
+Test 88.4917221069336 0.0
+Split 001/001. Training accuracy: 96.54 validation accuracy: 88.40 test accuracy: 88.40
+Validation 88.40453338623047 0.0
+Training a linear classifier for split 1: 100%|████████| 500/500 [00:00<00:00, 535.56it/s]
+Training a linear classifier for split 1: 100%|████████| 500/500 [00:00<00:00, 538.16it/s]
+Training a linear classifier for split 1:   0%|                   | 0/500 [00:00<?, ?it/s]
+Split 001/001. Training accuracy: 96.01 validation accuracy: 88.14 test accuracy: 88.14
+Validation 88.14298248291016 0.0
+Test 88.14298248291016 0.0
+Split 001/001. Training accuracy: 96.81 validation accuracy: 88.14 test accuracy: 88.14
+Validation 88.14298248291016 0.0
+Training a linear classifier for split 1: 100%|████████| 500/500 [00:00<00:00, 542.58it/s]
+Training a linear classifier for split 1: 100%|████████| 500/500 [00:00<00:00, 543.94it/s]
+Training a linear classifier for split 1:   0%|                   | 0/500 [00:00<?, ?it/s]
+Split 001/001. Training accuracy: 97.61 validation accuracy: 88.67 test accuracy: 88.67
+Validation 88.66608428955078 0.0
+Test 88.66608428955078 0.0
+Split 001/001. Training accuracy: 97.61 validation accuracy: 89.10 test accuracy: 89.10
+Validation 89.10200500488281 0.0
+Training a linear classifier for split 1: 100%|████████| 500/500 [00:00<00:00, 532.49it/s]
+Training a linear classifier for split 1: 100%|████████| 500/500 [00:00<00:00, 543.99it/s]
+Training a linear classifier for split 1:   0%|                   | 0/500 [00:00<?, ?it/s]
+Split 001/001. Training accuracy: 97.61 validation accuracy: 89.01 test accuracy: 89.01
+Validation 89.01482391357422 0.0
+Test 89.01482391357422 0.0
+Split 001/001. Training accuracy: 97.61 validation accuracy: 89.01 test accuracy: 89.01
+Validation 89.01482391357422 0.0
+Training a linear classifier for split 1: 100%|████████| 500/500 [00:00<00:00, 550.04it/s]
+Training a linear classifier for split 1: 100%|████████| 500/500 [00:00<00:00, 540.83it/s]
+Training a linear classifier for split 1:   0%|                   | 0/500 [00:00<?, ?it/s]
+Split 001/001. Training accuracy: 97.61 validation accuracy: 88.84 test accuracy: 88.84
+Validation 88.8404541015625 0.0
+Training a linear classifier for split 1: 100%|████████| 500/500 [00:01<00:00, 492.68it/s]
+Training a linear classifier for split 1:  89%|███████ | 445/500 [00:00<00:00, 480.83it/s]
+Split 001/001. Training accuracy: 97.61 validation accuracy: 88.67 test accuracy: 88.67
+Validation 88.66608428955078 0.0
+Test 88.66608428955078 0.0
+Split 001/001. Training accuracy: 97.34 validation accuracy: 88.49 test accuracy: 88.49
+Validation 88.4917221069336 0.0
+Training a linear classifier for split 1: 100%|████████| 500/500 [00:01<00:00, 481.28it/s]
+Training a linear classifier for split 1: 100%|████████| 500/500 [00:00<00:00, 547.77it/s]
+Training a linear classifier for split 1:  91%|███████▏| 453/500 [00:00<00:00, 551.48it/s]
+Split 001/001. Training accuracy: 97.34 validation accuracy: 88.58 test accuracy: 88.58
+Validation 88.57890319824219 0.0
+Test 88.57890319824219 0.0
+Split 001/001. Training accuracy: 97.34 validation accuracy: 88.67 test accuracy: 88.67
+Validation 88.66608428955078 0.0
+Training a linear classifier for split 1: 100%|████████| 500/500 [00:00<00:00, 551.27it/s]
+Training a linear classifier for split 1: 100%|████████| 500/500 [00:01<00:00, 473.48it/s]
+Training a linear classifier for split 1:  78%|██████▏ | 389/500 [00:00<00:00, 547.25it/s]
+Split 001/001. Training accuracy: 97.61 validation accuracy: 88.40 test accuracy: 88.40
+Validation 88.40453338623047 0.0
+Test 88.40453338623047 0.0
+Split 001/001. Training accuracy: 97.61 validation accuracy: 88.75 test accuracy: 88.75
+Validation 88.7532730102539 0.0
+Training a linear classifier for split 1: 100%|████████| 500/500 [00:00<00:00, 544.04it/s]
+Training a linear classifier for split 1: 100%|████████| 500/500 [00:00<00:00, 548.83it/s]
+Training a linear classifier for split 1: 100%|████████| 500/500 [00:00<00:00, 551.33it/s]
+Training a linear classifier for split 1: 100%|████████| 500/500 [00:00<00:00, 556.24it/s]
+Training a linear classifier for split 1:  81%|██████▍ | 405/500 [00:00<00:00, 560.27it/s]
+Split 001/001. Training accuracy: 97.34 validation accuracy: 89.01 test accuracy: 89.01
+Validation 89.01482391357422 0.0
+Test 89.01482391357422 0.0
+Split 001/001. Training accuracy: 97.34 validation accuracy: 89.10 test accuracy: 89.10
+Validation 89.10200500488281 0.0
+Test 89.10200500488281 0.0
+Split 001/001. Training accuracy: 97.34 validation accuracy: 88.84 test accuracy: 88.84
+Validation 88.8404541015625 0.0
+Test 88.8404541015625 0.0
+Split 001/001. Training accuracy: 97.34 validation accuracy: 88.84 test accuracy: 88.84
+Validation 88.8404541015625 0.0
+Training a linear classifier for split 1: 100%|████████| 500/500 [00:00<00:00, 560.46it/s]
+Training a linear classifier for split 1: 100%|████████| 500/500 [00:00<00:00, 551.04it/s]
+Training a linear classifier for split 1:  93%|███████▍| 465/500 [00:00<00:00, 561.04it/s]
+Split 001/001. Training accuracy: 97.34 validation accuracy: 88.75 test accuracy: 88.75
+Validation 88.7532730102539 0.0
+Test 88.7532730102539 0.0
+Split 001/001. Training accuracy: 97.34 validation accuracy: 88.75 test accuracy: 88.75
+Validation 88.7532730102539 0.0
+Training a linear classifier for split 1: 100%|████████| 500/500 [00:00<00:00, 560.96it/s]
+Training a linear classifier for split 1: 100%|████████| 500/500 [00:00<00:00, 553.68it/s]
+Training a linear classifier for split 1:  89%|███████▏| 446/500 [00:00<00:00, 484.44it/s]
+Split 001/001. Training accuracy: 97.34 validation accuracy: 89.01 test accuracy: 89.01
+Validation 89.01482391357422 0.0
+Test 89.01482391357422 0.0
+Split 001/001. Training accuracy: 97.34 validation accuracy: 89.36 test accuracy: 89.36
+Validation 89.36355590820312 0.0
+Training a linear classifier for split 1: 100%|████████| 500/500 [00:01<00:00, 481.51it/s]
+Training a linear classifier for split 1: 100%|████████| 500/500 [00:00<00:00, 550.64it/s]
+Training a linear classifier for split 1:  90%|███████▏| 448/500 [00:00<00:00, 555.37it/s]
+Split 001/001. Training accuracy: 97.34 validation accuracy: 89.36 test accuracy: 89.36
+Validation 89.36355590820312 0.0
+Test 89.36355590820312 0.0
+Split 001/001. Training accuracy: 97.34 validation accuracy: 89.36 test accuracy: 89.36
+Validation 89.36355590820312 0.0
+Training a linear classifier for split 1: 100%|████████| 500/500 [00:00<00:00, 550.23it/s]
+Training a linear classifier for split 1: 100%|████████| 500/500 [00:00<00:00, 555.43it/s]
+Training a linear classifier for split 1:  89%|███████▏| 447/500 [00:00<00:00, 543.74it/s]
+Split 001/001. Training accuracy: 97.07 validation accuracy: 89.36 test accuracy: 89.36
+Validation 89.36355590820312 0.0
+Test 89.36355590820312 0.0
+Split 001/001. Training accuracy: 97.07 validation accuracy: 89.10 test accuracy: 89.10
+Validation 89.10200500488281 0.0
+Training a linear classifier for split 1: 100%|████████| 500/500 [00:00<00:00, 545.19it/s]
+Training a linear classifier for split 1: 100%|████████| 500/500 [00:00<00:00, 549.44it/s]
+Training a linear classifier for split 1: 100%|████████| 500/500 [00:00<00:00, 559.56it/s]
+Split 001/001. Training accuracy: 97.07 validation accuracy: 88.93 test accuracy: 88.93
+Validation 88.9276351928711 0.0
+Test 88.9276351928711 0.0
+Split 001/001. Training accuracy: 97.07 validation accuracy: 88.84 test accuracy: 88.84
+Validation 88.8404541015625 0.0
+Test 88.8404541015625 0.0
+Training a linear classifier for split 1: 100%|████████| 500/500 [00:00<00:00, 555.50it/s]
+Training a linear classifier for split 1: 100%|████████| 500/500 [00:00<00:00, 552.58it/s]
+Split 001/001. Training accuracy: 97.07 validation accuracy: 88.75 test accuracy: 88.75
+Validation 88.7532730102539 0.0
+Test 88.7532730102539 0.0
+Split 001/001. Training accuracy: 97.07 validation accuracy: 88.75 test accuracy: 88.75
+Validation 88.7532730102539 0.0
+Test 88.7532730102539 0.0
+Training a linear classifier for split 1: 100%|████████| 500/500 [00:00<00:00, 541.53it/s]
+Training a linear classifier for split 1: 100%|████████| 500/500 [00:00<00:00, 545.72it/s]
+Training a linear classifier for split 1: 100%|████████| 500/500 [00:01<00:00, 480.38it/s]
+Training a linear classifier for split 1:  76%|██████  | 380/500 [00:00<00:00, 458.95it/s]
+Split 001/001. Training accuracy: 97.07 validation accuracy: 88.49 test accuracy: 88.49
+Validation 88.4917221069336 0.0
+Test 88.4917221069336 0.0
+Split 001/001. Training accuracy: 97.07 validation accuracy: 88.40 test accuracy: 88.40
+Validation 88.40453338623047 0.0
+Training a linear classifier for split 1: 100%|████████| 500/500 [00:01<00:00, 459.32it/s]
+Training a linear classifier for split 1: 100%|████████| 500/500 [00:01<00:00, 468.97it/s]
+Training a linear classifier for split 1:  54%|████▎   | 270/500 [00:00<00:00, 528.50it/s]
+Split 001/001. Training accuracy: 97.07 validation accuracy: 88.49 test accuracy: 88.49
+Validation 88.4917221069336 0.0
+Test 88.4917221069336 0.0
+Split 001/001. Training accuracy: 97.07 validation accuracy: 88.49 test accuracy: 88.49
+Validation 88.4917221069336 0.0
+Training a linear classifier for split 1: 100%|████████| 500/500 [00:00<00:00, 527.54it/s]
+Training a linear classifier for split 1: 100%|████████| 500/500 [00:00<00:00, 527.88it/s]
+Training a linear classifier for split 1:  57%|████▌   | 284/500 [00:00<00:00, 548.44it/s]
+Split 001/001. Training accuracy: 97.07 validation accuracy: 88.67 test accuracy: 88.67
+Validation 88.66608428955078 0.0
+Test 88.66608428955078 0.0
+Split 001/001. Training accuracy: 97.07 validation accuracy: 88.75 test accuracy: 88.75
+Validation 88.7532730102539 0.0
+Training a linear classifier for split 1: 100%|████████| 500/500 [00:00<00:00, 547.80it/s]
+Training a linear classifier for split 1: 100%|████████| 500/500 [00:00<00:00, 533.82it/s]
+Training a linear classifier for split 1:  57%|████▌   | 284/500 [00:00<00:00, 559.39it/s]
+Split 001/001. Training accuracy: 97.07 validation accuracy: 88.84 test accuracy: 88.84
+Validation 88.8404541015625 0.0
+Test 88.8404541015625 0.0
+Split 001/001. Training accuracy: 97.07 validation accuracy: 88.75 test accuracy: 88.75
+Validation 88.7532730102539 0.0
+Training a linear classifier for split 1: 100%|████████| 500/500 [00:00<00:00, 551.66it/s]
+Training a linear classifier for split 1: 100%|████████| 500/500 [00:00<00:00, 546.77it/s]
+Training a linear classifier for split 1:  55%|████▍   | 277/500 [00:00<00:00, 551.58it/s]
+Split 001/001. Training accuracy: 97.07 validation accuracy: 88.84 test accuracy: 88.84
+Validation 88.8404541015625 0.0
+Test 88.8404541015625 0.0
+Split 001/001. Training accuracy: 97.07 validation accuracy: 88.84 test accuracy: 88.84
+Validation 88.8404541015625 0.0
+Test 88.8404541015625 0.0
+Split 001/001. Training accuracy: 97.07 validation accuracy: 88.84 test accuracy: 88.84
+Validation 88.8404541015625 0.0
+Test 88.8404541015625 0.0
+Split 001/001. Training accuracy: 97.07 validation accuracy: 88.93 test accuracy: 88.93
+Validation 88.9276351928711 0.0
+Training a linear classifier for split 1: 100%|████████| 500/500 [00:00<00:00, 545.76it/s]
+Training a linear classifier for split 1: 100%|████████| 500/500 [00:00<00:00, 538.60it/s]
+Training a linear classifier for split 1:  55%|████▍   | 276/500 [00:00<00:00, 547.68it/s]
+Split 001/001. Training accuracy: 97.07 validation accuracy: 88.84 test accuracy: 88.84
+Validation 88.8404541015625 0.0
+Test 88.8404541015625 0.0
+Split 001/001. Training accuracy: 97.07 validation accuracy: 88.84 test accuracy: 88.84
+Validation 88.8404541015625 0.0
+Training a linear classifier for split 1: 100%|████████| 500/500 [00:00<00:00, 545.73it/s]
+Training a linear classifier for split 1: 100%|████████| 500/500 [00:00<00:00, 554.72it/s]
+Training a linear classifier for split 1: 100%|████████| 500/500 [00:00<00:00, 551.47it/s]
+Training a linear classifier for split 1: 100%|████████| 500/500 [00:00<00:00, 551.53it/s]
+Training a linear classifier for split 1:  68%|█████▍  | 340/500 [00:00<00:00, 550.12it/s]
+Split 001/001. Training accuracy: 97.07 validation accuracy: 88.84 test accuracy: 88.84
+Validation 88.8404541015625 0.0
+Test 88.8404541015625 0.0
+Split 001/001. Training accuracy: 97.07 validation accuracy: 88.93 test accuracy: 88.93
+Validation 88.9276351928711 0.0
+Training a linear classifier for split 1: 100%|████████| 500/500 [00:00<00:00, 548.74it/s]
+Training a linear classifier for split 1: 100%|████████| 500/500 [00:00<00:00, 546.84it/s]
+Training a linear classifier for split 1:  69%|█████▍  | 343/500 [00:00<00:00, 532.66it/s]
+Split 001/001. Training accuracy: 97.07 validation accuracy: 88.93 test accuracy: 88.93
+Validation 88.9276351928711 0.0
+Test 88.9276351928711 0.0
+Split 001/001. Training accuracy: 97.07 validation accuracy: 88.93 test accuracy: 88.93
+Validation 88.9276351928711 0.0
+Training a linear classifier for split 1: 100%|████████| 500/500 [00:00<00:00, 534.66it/s]
+Training a linear classifier for split 1: 100%|████████| 500/500 [00:00<00:00, 551.08it/s]
+Training a linear classifier for split 1:  69%|█████▌  | 345/500 [00:00<00:00, 556.01it/s]
+Split 001/001. Training accuracy: 97.07 validation accuracy: 89.01 test accuracy: 89.01
+Validation 89.01482391357422 0.0
+Test 89.01482391357422 0.0
+Split 001/001. Training accuracy: 97.07 validation accuracy: 89.10 test accuracy: 89.10
+Validation 89.10200500488281 0.0
+Training a linear classifier for split 1: 100%|████████| 500/500 [00:00<00:00, 554.95it/s]
+Training a linear classifier for split 1: 100%|████████| 500/500 [00:00<00:00, 556.97it/s]
+Training a linear classifier for split 1:  79%|██████▎ | 394/500 [00:00<00:00, 563.54it/s]
+Split 001/001. Training accuracy: 97.07 validation accuracy: 89.28 test accuracy: 89.28
+Validation 89.27637481689453 0.0
+Test 89.27637481689453 0.0
+Split 001/001. Training accuracy: 97.07 validation accuracy: 89.36 test accuracy: 89.36
+Validation 89.36355590820312 0.0
+Training a linear classifier for split 1: 100%|████████| 500/500 [00:00<00:00, 555.61it/s]
+Training a linear classifier for split 1: 100%|████████| 500/500 [00:00<00:00, 555.70it/s]
+Training a linear classifier for split 1:  76%|██████  | 382/500 [00:00<00:00, 548.72it/s]
+Split 001/001. Training accuracy: 97.07 validation accuracy: 89.54 test accuracy: 89.54
+Validation 89.53792572021484 0.0
+Test 89.53792572021484 0.0
+Split 001/001. Training accuracy: 97.07 validation accuracy: 89.45 test accuracy: 89.45
+Validation 89.45074462890625 0.0
+Training a linear classifier for split 1: 100%|████████| 500/500 [00:00<00:00, 540.50it/s]
+Training a linear classifier for split 1: 100%|████████| 500/500 [00:00<00:00, 552.34it/s]
+Training a linear classifier for split 1:  89%|███████ | 444/500 [00:00<00:00, 553.69it/s]
+Split 001/001. Training accuracy: 97.07 validation accuracy: 89.28 test accuracy: 89.28
+Validation 89.27637481689453 0.0
+Test 89.27637481689453 0.0
+Split 001/001. Training accuracy: 97.07 validation accuracy: 89.28 test accuracy: 89.28
+Validation 89.27637481689453 0.0
+Training a linear classifier for split 1: 100%|████████| 500/500 [00:00<00:00, 547.44it/s]
+Training a linear classifier for split 1: 100%|████████| 500/500 [00:00<00:00, 560.64it/s]
+Training a linear classifier for split 1:  92%|███████▍| 461/500 [00:00<00:00, 557.94it/s]
+Split 001/001. Training accuracy: 97.07 validation accuracy: 89.28 test accuracy: 89.28
+Validation 89.27637481689453 0.0
+Test 89.27637481689453 0.0
+Split 001/001. Training accuracy: 97.07 validation accuracy: 89.36 test accuracy: 89.36
+Validation 89.36355590820312 0.0
+Training a linear classifier for split 1: 100%|████████| 500/500 [00:00<00:00, 558.20it/s]
+Training a linear classifier for split 1: 100%|████████| 500/500 [00:00<00:00, 549.32it/s]
+Training a linear classifier for split 1: 100%|████████| 500/500 [00:00<00:00, 582.97it/s]
+Split 001/001. Training accuracy: 97.07 validation accuracy: 89.45 test accuracy: 89.45
+Validation 89.45074462890625 0.0
+Test 89.45074462890625 0.0
+Split 001/001. Training accuracy: 97.34 validation accuracy: 89.63 test accuracy: 89.63
+Validation 89.62510681152344 0.0
+Test 89.62510681152344 0.0
+Training a linear classifier for split 1: 100%|████████| 500/500 [00:00<00:00, 551.02it/s]
+Training a linear classifier for split 1: 100%|████████| 500/500 [00:00<00:00, 553.23it/s]
+Training a linear classifier for split 1:   0%|                   | 0/500 [00:00<?, ?it/s]
+Split 001/001. Training accuracy: 97.34 validation accuracy: 89.71 test accuracy: 89.71
+Validation 89.71229553222656 0.0
+Test 89.71229553222656 0.0
+Split 001/001. Training accuracy: 97.34 validation accuracy: 89.71 test accuracy: 89.71
+Validation 89.71229553222656 0.0
+Training a linear classifier for split 1: 100%|████████| 500/500 [00:00<00:00, 540.19it/s]
+Training a linear classifier for split 1: 100%|████████| 500/500 [00:00<00:00, 542.15it/s]
+Training a linear classifier for split 1:   0%|                   | 0/500 [00:00<?, ?it/s]
+Split 001/001. Training accuracy: 97.34 validation accuracy: 89.80 test accuracy: 89.80
+Validation 89.79947662353516 0.0
+Test 89.79947662353516 0.0
+Split 001/001. Training accuracy: 97.34 validation accuracy: 89.71 test accuracy: 89.71
+Validation 89.71229553222656 0.0
+Training a linear classifier for split 1: 100%|████████| 500/500 [00:00<00:00, 556.84it/s]
+Training a linear classifier for split 1: 100%|████████| 500/500 [00:00<00:00, 560.90it/s]
+Training a linear classifier for split 1:  11%|▉        | 55/500 [00:00<00:00, 546.65it/s]
+Split 001/001. Training accuracy: 97.34 validation accuracy: 89.80 test accuracy: 89.80
+Validation 89.79947662353516 0.0
+Test 89.79947662353516 0.0
+Split 001/001. Training accuracy: 97.34 validation accuracy: 89.80 test accuracy: 89.80
+Validation 89.79947662353516 0.0
+Training a linear classifier for split 1: 100%|████████| 500/500 [00:00<00:00, 541.16it/s]
+Training a linear classifier for split 1: 100%|████████| 500/500 [00:00<00:00, 541.18it/s]
+Training a linear classifier for split 1:  11%|█        | 57/500 [00:00<00:00, 566.51it/s]
+Split 001/001. Training accuracy: 97.34 validation accuracy: 89.97 test accuracy: 89.97
+Validation 89.97384643554688 0.0
+Test 89.97384643554688 0.0
+Split 001/001. Training accuracy: 97.34 validation accuracy: 90.15 test accuracy: 90.15
+Validation 90.14820861816406 0.0
+Training a linear classifier for split 1: 100%|████████| 500/500 [00:00<00:00, 529.27it/s]
+Training a linear classifier for split 1: 100%|████████| 500/500 [00:00<00:00, 557.93it/s]
+Training a linear classifier for split 1:  11%|█        | 56/500 [00:00<00:00, 559.68it/s]
+Split 001/001. Training accuracy: 97.34 validation accuracy: 90.24 test accuracy: 90.24
+Validation 90.23539733886719 0.0
+Test 90.23539733886719 0.0
+Split 001/001. Training accuracy: 97.61 validation accuracy: 90.41 test accuracy: 90.41
+Validation 90.4097671508789 0.0
+Training a linear classifier for split 1: 100%|████████| 500/500 [00:00<00:00, 549.92it/s]
+Training a linear classifier for split 1: 100%|████████| 500/500 [00:00<00:00, 553.14it/s]
+Training a linear classifier for split 1:  12%|█        | 58/500 [00:00<00:00, 579.64it/s]
+Split 001/001. Training accuracy: 97.61 validation accuracy: 90.50 test accuracy: 90.50
+Validation 90.4969482421875 0.0
+Test 90.4969482421875 0.0
+Split 001/001. Training accuracy: 97.61 validation accuracy: 90.67 test accuracy: 90.67
+Validation 90.67131805419922 0.0
+Test 90.67131805419922 0.0
+Split 001/001. Training accuracy: 97.61 validation accuracy: 90.58 test accuracy: 90.58
+Validation 90.58413696289062 0.0
+Test 90.58413696289062 0.0
+Split 001/001. Training accuracy: 97.61 validation accuracy: 90.67 test accuracy: 90.67
+Validation 90.67131805419922 0.0
+Test 90.67131805419922 0.0
+Split 001/001. Training accuracy: 97.61 validation accuracy: 90.76 test accuracy: 90.76
+Validation 90.75849914550781 0.0
+Training a linear classifier for split 1: 100%|████████| 500/500 [00:00<00:00, 550.82it/s]
+Training a linear classifier for split 1: 100%|████████| 500/500 [00:00<00:00, 532.03it/s]
+Training a linear classifier for split 1:  12%|█        | 60/500 [00:00<00:00, 583.38it/s]
+Split 001/001. Training accuracy: 97.61 validation accuracy: 90.85 test accuracy: 90.85
+Validation 90.84568786621094 0.0
+Test 90.84568786621094 0.0
+Split 001/001. Training accuracy: 97.61 validation accuracy: 91.02 test accuracy: 91.02
+Validation 91.02005004882812 0.0
+Training a linear classifier for split 1: 100%|████████| 500/500 [00:00<00:00, 566.95it/s]
+Training a linear classifier for split 1: 100%|████████| 500/500 [00:00<00:00, 538.34it/s]
+Training a linear classifier for split 1:  24%|█▉      | 118/500 [00:00<00:00, 582.83it/s]
+Split 001/001. Training accuracy: 97.61 validation accuracy: 90.93 test accuracy: 90.93
+Validation 90.93286895751953 0.0
+Test 90.93286895751953 0.0
+Split 001/001. Training accuracy: 97.87 validation accuracy: 90.93 test accuracy: 90.93
+Validation 90.93286895751953 0.0
+Training a linear classifier for split 1: 100%|████████| 500/500 [00:00<00:00, 552.90it/s]
+Training a linear classifier for split 1: 100%|████████| 500/500 [00:00<00:00, 543.55it/s]
+Training a linear classifier for split 1:  23%|█▊      | 114/500 [00:00<00:00, 519.04it/s]
+Split 001/001. Training accuracy: 97.87 validation accuracy: 90.93 test accuracy: 90.93
+Validation 90.93286895751953 0.0
+Test 90.93286895751953 0.0
+Split 001/001. Training accuracy: 98.14 validation accuracy: 90.85 test accuracy: 90.85
+Validation 90.84568786621094 0.0
+Training a linear classifier for split 1: 100%|████████| 500/500 [00:00<00:00, 532.16it/s]
+Training a linear classifier for split 1: 100%|████████| 500/500 [00:00<00:00, 523.23it/s]
+Training a linear classifier for split 1:  21%|█▋      | 105/500 [00:00<00:00, 521.52it/s]
+Split 001/001. Training accuracy: 98.14 validation accuracy: 90.93 test accuracy: 90.93
+Validation 90.93286895751953 0.0
+Training a linear classifier for split 1: 100%|████████| 500/500 [00:01<00:00, 495.16it/s]
+Training a linear classifier for split 1: 100%|████████| 500/500 [00:01<00:00, 482.13it/s]
+Training a linear classifier for split 1: 100%|████████| 500/500 [00:01<00:00, 485.00it/s]
+Training a linear classifier for split 1: 100%|████████| 500/500 [00:01<00:00, 485.00it/s]
+Split 001/001. Training accuracy: 98.14 validation accuracy: 91.02 test accuracy: 91.02
+Validation 91.02005004882812 0.0
+Test 91.02005004882812 0.0
+Split 001/001. Training accuracy: 98.14 validation accuracy: 91.02 test accuracy: 91.02
+Validation 91.02005004882812 0.0
+Test 91.02005004882812 0.0
+Training a linear classifier for split 1: 100%|████████| 500/500 [00:01<00:00, 485.00it/s]
